@@ -7,6 +7,10 @@ const publicationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  date:{
+    date:Date,
+    required:true,
+  }
 });
 
 const publication = mongoose.model("Publication", publicationSchema);
