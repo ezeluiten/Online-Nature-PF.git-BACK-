@@ -7,6 +7,6 @@ const threesSchema = new mongoose.Schema({
   },
 });
 
-const Three = mongoose.model("Three", threesSchema);
+const Tree = mongoose.model("Tree", threesSchema);
 
-module.exports = Three;
+module.exports = Tree;
