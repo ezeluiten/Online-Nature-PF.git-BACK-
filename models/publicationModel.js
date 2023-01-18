@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const publicationSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -8,9 +10,10 @@ const publicationSchema = new mongoose.Schema({
     required: true,
   },
   date:{
-    date:Date,
-    required:true,
-  }
+    type:Date,
+    // required:true,
+  },
+  client: [{ type: mongoose.Schema.Types.ObjectId, ref: 'clients' },{ type: mongoose.Schema.Types.String, ref: 'clients' }]
 });
 
 const publication = mongoose.model("Publication", publicationSchema);

@@ -6,7 +6,7 @@ exports.createClient = async ( req, res ) => {
         const client = req.body
 
         const { name, mail, phone, dni } = client
-    
+        
         const newClient = await Client.create({
             name,
             mail,
@@ -31,9 +31,22 @@ exports.createClient = async ( req, res ) => {
 }
 
 exports.getAllClients = async( req, res ) => {
+    const idClient = req.body.id
+
+    if(idClient) {
+        try {
+            const clients = await Client.find({_id:idClient})
+            console.log(clients);
+        } catch (error) {
+            
+        }
+    }
 
     try{
         const clients = await Client.find({})
+
+        if(!clients.length) return res.status(404).send("No hay cliente por aqui :c")
+
         res.status(201).json({
             status:"success",
             requestedAt:req.requestedAt,

@@ -1,18 +1,14 @@
-const app = require("./app");
-const db = require("./db.js");
+// const morgan = require("morgan")
+const app = require("./app")
+const db = require('./db.js')
 
-// dotenv.config({path: "./config.env"})
+const port = process.env.PORT || 5000
 
-// const DB = process.env.DATABASE
+// app.use(morgan('dev'));
 
-// mongoose.connect(DB, {
-//     useNewUrlParser:true
-// }).then(con=>console.log(con.connections, "db success"))
+app.listen(port, ()=>{
+    console.log(`App running on port ${port}...`)
+})
 
-const port = process.env.PORT || 5000;
-
-app.listen(port, () => {
-  console.log(`App running on port ${port}...`);
-});
 
 db();
