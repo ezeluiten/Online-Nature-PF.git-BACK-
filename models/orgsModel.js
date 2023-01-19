@@ -5,6 +5,7 @@ const orgsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  locations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'locations' }]
 });
 
 const Orgs = mongoose.model("Orgs", orgsSchema);

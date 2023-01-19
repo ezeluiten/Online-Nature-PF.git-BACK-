@@ -1,0 +1,3 @@
+comandos para cambiar en el archivo package.json
+arrancar el server para deploy --> node server.js
+arrancar el server para desarrollo --> nodemon server.js

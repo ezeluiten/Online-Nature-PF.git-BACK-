@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
 
-const animalSchema = new mongoose.Schema({
+const threesSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
-  location: [{ type: mongoose.Schema.Types.ObjectId, ref: "locations" }],
   species: [{ type: mongoose.Schema.Types.ObjectId, ref: "species" }],
   donations: [{ type: mongoose.Schema.Types.ObjectId, ref: "donations" }],
+  location: [{ type: mongoose.Schema.Types.ObjectId, ref: "locations" }],
 });
 
-const Animals = mongoose.model("Animals", animalSchema);
+const Tree = mongoose.model("Tree", threesSchema);
 
-module.exports = Animals;
+module.exports = Tree;
