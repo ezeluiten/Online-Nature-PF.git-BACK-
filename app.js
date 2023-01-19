@@ -1,10 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
 
-
-
-
-
 const speciesRouter = require('./routes/speciesRoutes')
 const treesRouter = require('./routes/treesRoutes')
 const orgRoutes = require('./routes/orgsRoutes')
@@ -13,7 +9,6 @@ const animalRouter = require("./routes/animalRoutes");
 const publicationsRoutes = require("./routes/publicationRoutes");
 const donationsController = require("./routes/donationRoutes");
 const locationController = require("./routes/locationRouters");
-
 
 const app = express();
 
@@ -34,9 +29,7 @@ app.use((req, res, next) => {
   next();
 });
 
-
 // 3) ROUTES
-
 app.use("/api/v1/species", speciesRouter);
 app.use("/api/v1/trees", treesRouter);
 app.use('/api/v1/orgs', orgRoutes);
