@@ -1,5 +1,5 @@
 const Publication = require("../models/publicationModel")
-const Client = require("../models/clientModel")
+// const Client = require("../models/clientModel")
 
 exports.createPublication = async ( req, res ) => {
     try{
