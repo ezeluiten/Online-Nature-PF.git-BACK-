@@ -47,7 +47,7 @@ exports.getAllTrees = async( req, res ) => {
         })
     }
 }
-=======
+
 const Tree = require("../models/treesModel");
 
 exports.getAllTrees = async (req, res) => {
@@ -93,4 +93,4 @@ exports.createTrees = async (req, res) => {
     });
   }
 };
->>>>>>> b59567464c032b0f779a89845d18530c7d9e7de3
+
