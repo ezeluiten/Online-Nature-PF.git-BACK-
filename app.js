@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const clientRouter = require('./routes/clientRoutes');
 const animalRouter = require('./routes/animalRoutes');
 const publicationsRoutes = require('./routes/publicationRoutes')
+const orgRoutes = require('./routes/orgsRoutes')
 
 const app = express();
 
@@ -28,5 +29,6 @@ app.use((req, res, next) => {
 app.use('/api/v1/clients', clientRouter);
 app.use('/api/v1/animals', animalRouter);
 app.use('/api/v1/publications', publicationsRoutes);
+app.use('/api/v1/orgs', orgRoutes);
 
 module.exports = app;
