@@ -7,7 +7,7 @@ const threesSchema = new mongoose.Schema({
   },
   species: [{ type: mongoose.Schema.Types.ObjectId, ref: "species" }],
   donations: [{ type: mongoose.Schema.Types.ObjectId, ref: "donations" }],
-  location: [{ type: mongoose.Schema.Types.ObjectId, ref: "location" }],
+  location: [{ type: mongoose.Schema.Types.ObjectId, ref: "locations" }],
 });
 
 const Tree = mongoose.model("Tree", threesSchema);
