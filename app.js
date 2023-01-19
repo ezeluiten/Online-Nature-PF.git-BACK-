@@ -4,7 +4,8 @@ const morgan = require('morgan');
 const clientRouter = require('./routes/clientRoutes');
 const animalRouter = require('./routes/animalRoutes');
 const publicationsRoutes = require('./routes/publicationRoutes')
-
+const speciesRouter = require('./routes/speciesRoutes')
+const treesRouter = require('./routes/treesRoutes')
 const app = express();
 
 // 1) MIDDLEWARES
@@ -28,5 +29,6 @@ app.use((req, res, next) => {
 app.use('/api/v1/clients', clientRouter);
 app.use('/api/v1/animals', animalRouter);
 app.use('/api/v1/publications', publicationsRoutes);
-
+app.use("/api/v1/species", speciesRouter);
+app.use("/api/v1/trees", treesRouter);
 module.exports = app;

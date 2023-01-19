@@ -13,7 +13,7 @@ const publicationSchema = new mongoose.Schema({
     type:Date,
     // required:true,
   },
-  client: [{ type: mongoose.Schema.Types.ObjectId, ref: 'clients' },{ type: mongoose.Schema.Types.String, ref: 'clients' }]
+  client: [{ type: mongoose.Schema.Types.ObjectId, ref: 'clients' }]
 });
 
 const publication = mongoose.model("Publication", publicationSchema);
