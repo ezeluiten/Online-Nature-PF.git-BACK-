@@ -24,7 +24,7 @@ exports.getAllAnimals = async( req, res ) => {
 exports.createAnimal = async ( req, res ) => {
     try{
         const { name, location, species, donations } = req.body
-        if (!name || !species || !donations || !location)
+        if (!name)
           return res.status(404).send("Pon un nombre"); 
 
         const newAnimal = await Animals.create({
