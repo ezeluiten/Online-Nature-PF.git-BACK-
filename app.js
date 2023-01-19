@@ -1,12 +1,20 @@
 const express = require("express");
 const morgan = require("morgan");
 
+
+
+
+
+const speciesRouter = require('./routes/speciesRoutes')
+const treesRouter = require('./routes/treesRoutes')
+
 const orgRoutes = require('./routes/orgsRoutes')
 const clientRouter = require("./routes/clientRoutes");
 const animalRouter = require("./routes/animalRoutes");
 const publicationsRoutes = require("./routes/publicationRoutes");
 const donationsController = require("./routes/donationRoutes");
 const locationController = require("./routes/locationRouters");
+
 
 const app = express();
 
@@ -29,6 +37,14 @@ app.use((req, res, next) => {
 
 // 3) ROUTES
 
+
+
+
+app.use("/api/v1/species", speciesRouter);
+app.use("/api/v1/trees", treesRouter);
+
+
+
 app.use('/api/v1/orgs', orgRoutes);
 app.use("/api/v1/clients", clientRouter);
 app.use("/api/v1/animals", animalRouter);
@@ -37,3 +53,4 @@ app.use("/api/v1/donations", donationsController);
 app.use("/api/v1/locations", locationController);
 
 module.exports = app;
+
