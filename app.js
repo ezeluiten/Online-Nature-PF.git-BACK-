@@ -1,22 +1,24 @@
-const express = require('express');
-const morgan = require('morgan');
+const express = require("express");
+const morgan = require("morgan");
 
-const clientRouter = require('./routes/clientRoutes');
-const animalRouter = require('./routes/animalRoutes');
-const publicationsRoutes = require('./routes/publicationRoutes')
 const orgRoutes = require('./routes/orgsRoutes')
+const clientRouter = require("./routes/clientRoutes");
+const animalRouter = require("./routes/animalRoutes");
+const publicationsRoutes = require("./routes/publicationRoutes");
+const donationsController = require("./routes/donationRoutes");
+const locationController = require("./routes/locationRouters");
 
 const app = express();
 
 // 1) MIDDLEWARES
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
 }
 
 app.use(express.json());
 
 app.use((req, res, next) => {
-  console.log('Hello from the middleware 👋');
+  console.log("Hello from the middleware 👋");
   next();
 });
 
@@ -26,9 +28,12 @@ app.use((req, res, next) => {
 });
 
 // 3) ROUTES
-app.use('/api/v1/clients', clientRouter);
-app.use('/api/v1/animals', animalRouter);
-app.use('/api/v1/publications', publicationsRoutes);
+
 app.use('/api/v1/orgs', orgRoutes);
+app.use("/api/v1/clients", clientRouter);
+app.use("/api/v1/animals", animalRouter);
+app.use("/api/v1/publications", publicationsRoutes);
+app.use("/api/v1/donations", donationsController);
+app.use("/api/v1/locations", locationController);
 
 module.exports = app;
