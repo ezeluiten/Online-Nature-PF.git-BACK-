@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 
 const clientRouter = require('./routes/clientRoutes');
+const treeRouter = require('./routes/treeRoutes')
 
 const app = express();
 
@@ -24,5 +25,6 @@ app.use((req, res, next) => {
 
 // 3) ROUTES
 app.use('/api/v1/clients', clientRouter);
+app.use('/api/v1/trees', treeRouter);
 
 module.exports = app;
