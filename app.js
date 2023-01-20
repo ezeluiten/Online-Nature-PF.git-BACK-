@@ -43,8 +43,9 @@ cloudinary.config({
   api_secret: 'UqolylY5rgLDPrjevzSDyp4L4XY' 
 });
 
-app.post("upload/cloud", async(req, res) => {
+app.post("/images", async(req, res) => {
   const file = req.files.image
+  console.log(file);
   const result = cloudinary.uploader.upload(file.tempFilePath, {
     public_id: `${Date.now()}`,
     resource_type: "auto",
