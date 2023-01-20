@@ -1,15 +1,15 @@
-const Animals = require("../models/animalsModel")
+const Forest = require("../models/forestModel")
 
-exports.getAllAnimals = async( req, res ) => {
+exports.getForest = async( req, res ) => {
     try{
-        const animals = await Animals.find({})
-        if(!animals.length) return res.status(404).send("No hay animales por aqui :C")
+        const forest = await Forest.find({})
+        if(!forest.length) return res.status(404).send("No hay bosques por aqui :C")
 
         res.status(201).json({
             status:"success",
             requestedAt:req.requestedAt,
             data:{
-                animals: animals
+                animals: forest
             }
         })
 
@@ -21,27 +21,19 @@ exports.getAllAnimals = async( req, res ) => {
     }
 }
 
-exports.createAnimal = async ( req, res ) => {
+exports.createForest = async ( req, res ) => {
     try{
-        const {title, name, image, image_detail, location, species, amount } = req.body
+        const {name, trees} = req.body
         if (!name)
           return res.status(404).send("Pon un nombre"); 
 
-        const newAnimal = await Animals.create({
-          title,
-          name,
-          image,
-          image_detail,
-          amount,
-          location,
-          species,
-        });
+        const newForest = await Forest.create({name, trees});
        
         res.status(201).json({
             status:"success",
             requestedAt:req.requestedAt,
             data:{
-                client: newAnimal
+                client: newForest
             }
         })
 

@@ -1,13 +1,31 @@
 const mongoose = require("mongoose");
 
 const animalSchema = new mongoose.Schema({
-  name: {
+  title: {
     type: String,
     required: true,
   },
+  name: {
+    type: String,
+  },
+  image: {
+    type: String,
+    require: true
+  },
+  image_detail: {
+    type: String,
+    require: true
+  },
+  description: {
+    type: String,
+    require: true
+  },
+  amount: {
+    type: String,
+    require: true
+  },
   location: [{ type: mongoose.Schema.Types.ObjectId, ref: "locations" }],
   species: [{ type: mongoose.Schema.Types.ObjectId, ref: "species" }],
-  donations: [{ type: mongoose.Schema.Types.ObjectId, ref: "donations" }],
 });
 
 const Animals = mongoose.model("Animals", animalSchema);
