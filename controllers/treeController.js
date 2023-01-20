@@ -24,10 +24,10 @@ exports.getAllTrees = async (req, res) => {
 exports.createTrees = async (req, res) => {
   try {
     const arboles =req.body
-    const { name, species, donations, location} = arboles
-    if (!name || !species || !donations || !location) return res.status(404).send("Pon un nombre para el arbol");
+    const { name, species, amount, location} = arboles
+    if (!name || !species || !amount || !location) return res.status(404).send("Pon un nombre para el arbol");
 
-    const newTree = await Tree.create({ name, species, donations, location });
+    const newTree = await Tree.create({ name, species, amount, location });
 
     res.status(201).json({
       status: "success",
