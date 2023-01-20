@@ -1,5 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
+const cloudinary = require("cloudinary").v2;
+const fileUpload = require("express-fileupload")
 
 const speciesRouter = require('./routes/speciesRoutes')
 const treesRouter = require('./routes/treesRoutes')
@@ -29,6 +31,28 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(fileUpload({
+  useTempFiles: true,
+  limits: {fileSize: 50 * 2024 * 1024 }
+})) 
+
+// CLOUDINARY
+cloudinary.config({ 
+  cloud_name: 'drp8i1fbf', 
+  api_key: '496217133353186', 
+  api_secret: 'UqolylY5rgLDPrjevzSDyp4L4XY' 
+});
+
+app.post("upload/cloud", async(req, res) => {
+  const file = req.files.image
+  const result = cloudinary.uploader.upload(file.tempFilePath, {
+    public_id: `${Date.now()}`,
+    resource_type: "auto",
+    folder: "images"
+  })
+  res.status(200).json(result.url)
+})
+
 // 3) ROUTES
 app.use("/api/v1/species", speciesRouter);
 app.use("/api/v1/trees", treesRouter);
@@ -54,5 +78,8 @@ app.use((req, res) => {
     ],
   });
 });
+
+
+
 module.exports = app;
 
