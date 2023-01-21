@@ -7,4 +7,5 @@ router
   .route("/")
   .get(locationController.getLocations)
   .post(locationController.createLocation);
+router.route("/:id").get(locationController.getLocations)
 module.exports = router;

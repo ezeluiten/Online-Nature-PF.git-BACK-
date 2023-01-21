@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cloudinary = require("cloudinary").v2;
 const fileUpload = require("express-fileupload")
+const cors = require('cors')
 
 const speciesRouter = require('./routes/speciesRoutes')
 const treesRouter = require('./routes/treesRoutes')
@@ -37,6 +38,15 @@ app.use(fileUpload({
   limits: {fileSize: 50 * 2024 * 1024 }
 })) 
 
+//cors
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  next();
+});
+
 // CLOUDINARY
 cloudinary.config({ 
   cloud_name: 'drp8i1fbf', 
@@ -65,6 +75,10 @@ app.use("/api/v1/publications", publicationsRoutes);
 app.use("/api/v1/donations", donationsController);
 app.use("/api/v1/locations", locationController);
 app.use("/api/v1/forest", forestController);
+
+//cors
+
+
 app.use((req, res) => {
   res.status(201).json({
     status: "success",
@@ -81,8 +95,6 @@ app.use((req, res) => {
     ],
   });
 });
-
-
 
 module.exports = app;
 
