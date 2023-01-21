@@ -27,7 +27,7 @@ exports.createTrees = async (req, res) => {
     const { name, species, amount, location} = arboles
     if (!name || !species || !amount || !location) return res.status(404).send("Pon un nombre para el arbol");
 
-    const newTree = await Tree.create({ name, species, amount, location });
+    const newTree = await Tree.create({title, name, image, image_detail, amount, species, location });
 
     res.status(201).json({
       status: "success",
