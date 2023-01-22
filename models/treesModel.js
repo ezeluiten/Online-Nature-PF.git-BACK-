@@ -7,7 +7,6 @@ const threesSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    required: true,
   },
   image: {
     type: String,
@@ -21,7 +20,14 @@ const threesSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  species: [{ type: mongoose.Schema.Types.ObjectId, ref: "species" }],
+  description: {
+    type: String,
+    required: true
+  },
+  specie: {
+    type: String,
+    required: true
+  },
   location: [{ type: mongoose.Schema.Types.ObjectId, ref: "locations" }],
 });
 
