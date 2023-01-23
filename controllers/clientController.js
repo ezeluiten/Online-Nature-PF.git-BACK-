@@ -29,8 +29,7 @@ exports.createClient = async (req, res) => {
 };
 
 exports.getAllClients = async (req, res) => {
-  const idClient = req.body.id;
-
+  const idClient = req.params.id;
   if (idClient) {
     try {
       const clients = await Client.find({ _id: idClient });
@@ -49,13 +48,7 @@ exports.getAllClients = async (req, res) => {
     if (!clients.length)
       return res.status(404).send("No hay cliente por aqui :c");
 
-    res.status(201).json({
-      status: "success",
-      requestedAt: req.requestedAt,
-      data: {
-        client: clients,
-      },
-    });
+    res.status(201).json(clients);
   } catch (error) {
     res.status(400).json({
       status: "failure",
