@@ -7,4 +7,5 @@ router
   .route("/")
   .get(treesController.getAllTrees)
   .post(treesController.createTrees);
+router.route("/:id").get(treesController.getTreeById)
 module.exports = router;
