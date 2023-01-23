@@ -1,6 +1,21 @@
 const Species = require("../models/speciesModel");
 
 exports.getAllSpecies = async (req, res) => {
+
+  const idSpecies = req.params.id;
+
+  if (idSpecies) {
+    try {
+      const species = await Species.find({ _id: idSpecies });
+      console.log(species.map(e => e.name));
+    } catch (error) {
+      res.status(400).json({
+        status: "failure",
+        message: error,
+      });
+    }
+  }
+
   try {
     const species = await Species.find({});
     if (!species.length)
