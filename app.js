@@ -9,6 +9,7 @@ const animalRouter = require("./routes/animalRoutes");
 const publicationsRoutes = require("./routes/publicationRoutes");
 const donationsController = require("./routes/donationRoutes");
 const locationController = require("./routes/locationRouters");
+const catalogueRouter = require("./routes/catalogueRoutes")
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use("/api/v1/animals", animalRouter);
 app.use("/api/v1/publications", publicationsRoutes);
 app.use("/api/v1/donations", donationsController);
 app.use("/api/v1/locations", locationController);
+app.use("/api/v1/catalogue", catalogueRouter)
 app.use((req, res) => {
   res.status(201).json({
     status: "success",
@@ -51,6 +53,7 @@ app.use((req, res) => {
       "/locations",
       "/trees",
       "/species",
+      "/catalogue",
     ],
   });
 });
