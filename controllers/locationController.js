@@ -30,6 +30,21 @@ exports.createLocation = async (req, res) => {
 };
 
 exports.getLocations = async (req, res) => {
+
+  const idLocation = req.params.id;
+
+  if (idLocation) {
+    try {
+      const location = await Location.find({ _id: idLocation });
+      console.log(location.map(e => e.name));
+    } catch (error) {
+      res.status(400).json({
+        status: "failure",
+        message: error,
+      });
+    }
+  }
+
   try {
     const locations = await Location.find({});
     if (!locations.length) return res.status(404).send("No hay Locaciones");

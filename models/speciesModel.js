@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 
 const speciesSchema = new mongoose.Schema({
   type: {
-    type: String,
+    type: Array,
+    default: [],
     required: true,
   },
 });
