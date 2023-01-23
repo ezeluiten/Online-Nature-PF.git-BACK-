@@ -1,3 +1,5 @@
+const { application } = require("express")
+const { db } = require("../models/animalsModel")
 const Animals = require("../models/animalsModel")
 
 exports.getAllAnimals = async( req, res ) => {
@@ -49,3 +51,37 @@ exports.createAnimal = async ( req, res ) => {
         })
     }
 }
+
+exports.findAnimalId = async ( id ) => {
+    try{
+        if(id) {
+            const db = [];
+            const info = await Animals.findOne({where: {id:id}})
+            db.push(info)
+            return db
+        } 
+    }
+    catch (error){
+        console.log(error)
+    }
+}
+
+//  Animals.findById(id, function (err, docs) {
+//     if (err){
+//         console.log(err);
+//     }
+//     else{
+//         console.log("Result : ", docs);
+//     }
+// });
+
+application.get('/animals/:id', (req, res) => {
+
+    Animals.findById(req.params.id)
+    .then(doc => {
+        if(!doc) {return res.status(400).end();}
+        return res.status(200).json(doc);
+    })
+    .catch(err => next(err))
+
+})
