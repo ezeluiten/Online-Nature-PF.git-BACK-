@@ -66,16 +66,7 @@ app.post("/imagesTrees", async(req, res) => {
 })
 
 // 3) ROUTES
-<<<<<<< HEAD
-app.use('/api/v1/clients', clientRouter);
-app.use('/api/v1/trees', treesRouter)
-app.use('/api/v1/species', speciesRouter)
-app.use('/api/v1/orgs', orgRoutes)
-app.use('/api/v1/animals', animalRouter)
-app.use('/api/v1/publications', publicationsRoutes)
-app.use('/api/v1/donations', donationsController)
-app.use('/api/v1/locations', locationController)
-=======
+
 app.use("/api/v1/species", speciesRouter);
 app.use("/api/v1/trees", treesRouter);
 app.use('/api/v1/orgs', orgRoutes);
@@ -105,7 +96,7 @@ app.use((req, res) => {
     ],
   });
 });
->>>>>>> 2c95311a320d9e1e3f660e39831a25a4f7810764
+
 
 module.exports = app;
 

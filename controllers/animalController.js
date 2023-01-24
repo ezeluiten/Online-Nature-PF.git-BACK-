@@ -1,4 +1,4 @@
-const Animals = require("../models/animalsModel")
+const Animals = require("../models/animalsModel");
 
 exports.getAllAnimals = async (req, res) => {
   try {
@@ -54,29 +54,28 @@ exports.createAnimal = async (req, res) => {
     } = req.body;
     if (!title) return res.status(404).send("Pon un nombre");
 
-        const newAnimal = await Animals.create({
-          title,
-          name,
-          image,
-          image_detail,
-          description,
-          amount,
-          location,
-          species,
-        });
-       
-        res.status(201).json({
-            status:"success",
-            requestedAt:req.requestedAt,
-            data:{
-                client: newAnimal
-            }
-        })
+    const newAnimal = await Animals.create({
+      title,
+      name,
+      image,
+      image_detail,
+      description,
+      amount,
+      location,
+      species,
+    });
 
-    }catch (error){
-        res.status(400).json({
-            status: "failure",
-            message: error
-        })
-    }
-}
+    res.status(201).json({
+      status: "success",
+      requestedAt: req.requestedAt,
+      data: {
+        client: newAnimal,
+      },
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failure",
+      message: error,
+    });
+  }
+};
