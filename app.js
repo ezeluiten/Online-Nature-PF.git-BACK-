@@ -13,6 +13,7 @@ const publicationsRoutes = require("./routes/publicationRoutes");
 const donationsController = require("./routes/donationRoutes");
 const locationController = require("./routes/locationRouters");
 const forestController = require("./routes/forestRoutes")
+const adoptionController = require("./routes/adoptionRoute")
 
 const app = express();
 
@@ -75,6 +76,7 @@ app.use("/api/v1/publications", publicationsRoutes);
 app.use("/api/v1/donations", donationsController);
 app.use("/api/v1/locations", locationController);
 app.use("/api/v1/forest", forestController);
+app.use("/api/v1/adoptionCatalogue", adoptionController);
 
 //cors
 
@@ -92,6 +94,7 @@ app.use((req, res) => {
       "/locations",
       "/trees",
       "/species",
+      "/adoptionCatalogue"
     ],
   });
 });
