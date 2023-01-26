@@ -14,6 +14,7 @@ const donationsController = require("./routes/donationRoutes");
 const locationController = require("./routes/locationRouters");
 const catalogueRouter = require("./routes/catalogueRoutes")
 const forestController = require("./routes/forestRoutes")
+const adoptionController = require("./routes/adoptionRoute")
 
 const app = express();
 
@@ -77,6 +78,7 @@ app.use("/api/v1/donations", donationsController);
 app.use("/api/v1/locations", locationController);
 app.use("/api/v1/catalogue", catalogueRouter)
 app.use("/api/v1/forest", forestController);
+app.use("/api/v1/adoptionCatalogue", adoptionController);
 
 //cors
 
@@ -94,7 +96,11 @@ app.use((req, res) => {
       "/locations",
       "/trees",
       "/species",
+<<<<<<< HEAD
       "/catalogue",
+=======
+      "/adoptionCatalogue"
+>>>>>>> 63e871cb6ee17442d0f1902138543387715bd89c
     ],
   });
 });
