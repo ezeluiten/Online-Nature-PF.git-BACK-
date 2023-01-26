@@ -79,3 +79,38 @@ exports.createAnimal = async (req, res) => {
     });
   }
 };
+
+exports.getAnimalByName = async(req, res) => {
+  const forName = async (name) => {
+    try {
+      const all = [];
+      const dataBase = await Animals.findAll({
+        where: {
+          name: name,
+        }
+      });
+      if (dataBase.length > 0) {
+        dataBase.map(e => {all.push(e)})
+      }
+      return all
+    } catch (error) {
+      return console.log(error);
+    }
+  };
+
+
+  const {name} = req.query;
+  try {
+    if(name){
+      name = name.toLowerCase()
+      let animal = await forName(name)
+      if (!animal.length) return res.json({ info: "Animal not found" });
+      return res.status(200).send(animal);
+    }
+
+  }
+  catch(e){
+    console.log(e)
+      return res.status(500).send('Error, see console for more information')
+  }
+}
