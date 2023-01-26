@@ -13,6 +13,8 @@ const publicationsRoutes = require("./routes/publicationRoutes");
 const donationsController = require("./routes/donationRoutes");
 const locationController = require("./routes/locationRouters");
 const forestController = require("./routes/forestRoutes")
+const adoptionController = require("./routes/adoptionRoute")
+const filterController = require("./routes/filtersRoutes")
 
 const app = express();
 
@@ -23,8 +25,8 @@ if (process.env.NODE_ENV === "development") {
 
 app.use(express.json());
 
+
 app.use((req, res, next) => {
-  console.log("Hello from the middleware 👋");
   next();
 });
 
@@ -32,6 +34,7 @@ app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
 });
+console.log("🚀 ~ file: app.js:18 ~ filterController", filterController)
 
 app.use(fileUpload({
   useTempFiles: true,
@@ -76,6 +79,9 @@ app.use("/api/v1/publications", publicationsRoutes);
 app.use("/api/v1/donations", donationsController);
 app.use("/api/v1/locations", locationController);
 app.use("/api/v1/forest", forestController);
+app.use("/api/v1/adoptionCatalogue", adoptionController);
+app.use("/api/v1/filterController", filterController);
+
 
 //cors
 
@@ -93,6 +99,8 @@ app.use((req, res) => {
       "/locations",
       "/trees",
       "/species",
+      "/adoptionCatalogue",
+      "/filterController"
     ],
   });
 });
