@@ -8,7 +8,7 @@ const DB = process.env.DATABASE
 module.exports = () => {
     const connect = () => {
         mongoose.connect(
-            DB_DEP,
+            DB,
             {
                 keepAlive: true,
                 useNewUrlParser: true,
