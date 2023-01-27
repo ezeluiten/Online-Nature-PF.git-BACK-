@@ -15,6 +15,7 @@ const locationController = require("./routes/locationRouters");
 const forestController = require("./routes/forestRoutes")
 const adoptionController = require("./routes/adoptionRoute")
 const filterController = require("./routes/filtersRoutes")
+const checkOutController = require("./routes/checkOutRoutes")
 
 const app = express();
 
@@ -43,12 +44,13 @@ app.use(fileUpload({
 
 //cors
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
+
 
 // CLOUDINARY
 cloudinary.config({ 
@@ -80,6 +82,7 @@ app.use("/api/v1/locations", locationController);
 app.use("/api/v1/forest", forestController);
 app.use("/api/v1/adoptionCatalogue", adoptionController);
 app.use("/api/v1/filterController", filterController);
+app.use("/api/v1/checkOutController", checkOutController);
 
 
 //cors
@@ -99,7 +102,8 @@ app.use((req, res) => {
       "/trees",
       "/species",
       "/adoptionCatalogue",
-      "/filterController"
+      "/filterController",
+      "/checkOutController"
     ],
   });
 });
