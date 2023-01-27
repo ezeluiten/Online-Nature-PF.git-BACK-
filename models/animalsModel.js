@@ -20,8 +20,12 @@ const animalSchema = new mongoose.Schema({
     type: String,
     require: true
   },
-  amount: {
+  description_raw: {
     type: String,
+    require: true
+  },
+  amount: {
+    type: Number,
     require: true
   },
   location: [{ type: mongoose.Schema.Types.ObjectId, ref: "locations" }],
