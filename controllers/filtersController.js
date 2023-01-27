@@ -31,13 +31,15 @@ exports.sortCatalogue = async (req, res) => {
     })
 
     const result = []
-    if(type=="ascendant"){
+    if(type=='ascendant'){
         result.push(orderedAscendantCatalogue)
     }
     if(type=="descendant"){
         result.push(orderedDescendantCatalogue)
     }
-
+    if(type=="all"){
+        result.push(allCatalogue);
+    }
      
     try{      
         res.status(201).json({
@@ -60,7 +62,7 @@ exports.filterByCategory = async (req, res) => {
     
     const tree = await Tree.find({})
     const animals = await Animals.find({})
-
+const allCatalogue = [...animals, ...tree];
     const {type} = req.query
 
    
@@ -72,13 +74,15 @@ exports.filterByCategory = async (req, res) => {
     if(type=="trees"){
         result.push(tree)
     }
-
+if (type == "all") {
+  result.push(allCatalogue);
+}
     try{      
         res.status(201).json({
             status:"success",
             requestedAt:req.requestedAt,
             data:{
-                data
+                result
             }
         })
 
