@@ -34,7 +34,7 @@ app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
 });
-console.log("🚀 ~ file: app.js:18 ~ filterController", filterController)
+
 
 app.use(fileUpload({
   useTempFiles: true,

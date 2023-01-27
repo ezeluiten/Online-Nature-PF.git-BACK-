@@ -3,7 +3,7 @@ const Tree = require("../models/treesModel");
 
 
 exports.sortCatalogue = async (req, res) => {
-    console.log(" req", req)
+    
     const tree = await Tree.find({})
     const animals = await Animals.find({})
     const allCatalogue = [...animals, ...tree]
@@ -57,7 +57,7 @@ exports.sortCatalogue = async (req, res) => {
 }
 
 exports.filterByCategory = async (req, res) => {
-    console.log(" req", req)
+    
     const tree = await Tree.find({})
     const animals = await Animals.find({})
 
