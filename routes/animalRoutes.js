@@ -7,4 +7,5 @@ router
     .route("/")
     .get(animalController.getAllAnimals)
     .post(animalController.createAnimal)
+router.route("/:id").get(animalController.getAnimalById)
 module.exports = router

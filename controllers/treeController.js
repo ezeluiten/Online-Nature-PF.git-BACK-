@@ -28,6 +28,18 @@ exports.getAllTrees = async (req, res) => {
   }
 };
 
+exports.getTreeById = async (req, res) => {
+  try {
+    const id = await Tree.findById(req.params.id);
+    res.status(200).json(id);
+  } catch (error) {
+    res.status(400).json({
+      status: "failure",
+      message: error,
+    });
+  }
+};
+
 exports.createTrees = async (req, res) => {
   try {
     const arboles = req.body
