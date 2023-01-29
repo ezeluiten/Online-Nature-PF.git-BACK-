@@ -24,3 +24,46 @@ exports.getCatalogue = async (req, res) => {
     }
 
 }
+
+exports.deleteAnimal = async (req, res) => {
+    const {idAnimal} = req.params;
+  
+    try {
+      if(idAnimal) {
+        const animal = await Animals.deleteOne({
+          _id: idAnimal,
+        });
+    
+        res.status(201).json(animal);
+      }
+      res.status(201).send("No existe ese id de animal");
+  
+      console.log(`Ya el Animal ${idAnimal} fue eliminado`);
+    } catch (error) {
+      res.status(400).json({
+        status: "failure",
+        message: error,
+      });
+    }
+  };
+
+  exports.deleteTree = async (req, res) => {
+    const {idTree} = req.params;
+  
+    try {
+      if(idTree) {
+        const tree = await Tree.deleteOne({
+          _id: idTree,
+        });
+        res.status(201).json(tree);
+      }
+      res.status(201).send("No existe un Tree con ese id");
+  
+      console.log(`Ya el Tree ${idTree} fue eliminado`);
+    } catch (error) {
+      res.status(400).json({
+        status: "failure",
+        message: error,
+      });
+    }
+  };

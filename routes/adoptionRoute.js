@@ -7,4 +7,6 @@ router
     .route("/")
     .get(adoptionController.getCatalogue)
 
+router.route("/:id").delete(adoptionController.deleteAnimal)
+router.route("/:id").delete(adoptionController.deleteTree)
 module.exports = router
