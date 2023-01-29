@@ -7,5 +7,8 @@ router
     .route("/")
     .get(animalController.getAllAnimals)
     .post(animalController.createAnimal)
+    .put(animalController.updateAnimal)
 router.route("/:id").get(animalController.getAnimalById)
+router.route("/:id").put(animalController.updateAnimal)
+router.route("/:id").delete(animalController.deleteAnimal)
 module.exports = router

@@ -8,4 +8,5 @@ router
   .get(treesController.getAllTrees)
   .post(treesController.createTrees);
 router.route("/:id").get(treesController.getTreeById)
+router.route("/:id").delete(treesController.deleteTree)
 module.exports = router;

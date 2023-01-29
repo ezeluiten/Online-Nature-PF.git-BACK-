@@ -17,12 +17,16 @@ const threesSchema = new mongoose.Schema({
     required: true,
   },
   amount: {
-    type: String,
+    type: Number,
     required: true,
   },
   description: {
     type: String,
     required: true
+  },
+  description_raw: {
+    type: String,
+    require: true
   },
   specie: {
     type: String,
