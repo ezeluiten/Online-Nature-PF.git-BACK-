@@ -27,7 +27,7 @@ exports.getCatalogue = async (req, res) => {
 
 exports.deleteAnimal = async (req, res) => {
     const {idAnimal} = req.params;
-    console.log("id animal",idAnimal);
+    console.log("id animal",idAnimal,req);
 
     try {
       if(idAnimal) {
