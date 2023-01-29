@@ -136,14 +136,14 @@ exports.deleteAnimal = async (req, res) => {
   const {idAnimal} = req.params;
 
   try {
-    const animal = await Animals.deleteOne({
-      _id: idAnimal,
-    });
-
-    res.status(201).json({
-      status: "success",
-      animal: animal,
-    });
+    if(idAnimal) {
+      const animal = await Animals.deleteOne({
+        _id: idAnimal,
+      });
+  
+      res.status(201).json(animal);
+    }
+    res.status(201).send("No existe ese id de animal");
 
     console.log(`Ya el Animal ${idAnimal} fue eliminado`);
   } catch (error) {
