@@ -131,3 +131,25 @@ exports.updateAnimal = async (req, res) => {
     });
   }
 };
+
+exports.deleteAnimal = async (req, res) => {
+  const {idAnimal} = req.params;
+
+  try {
+    const animal = await Animals.deleteOne({
+      _id: idAnimal,
+    });
+
+    res.status(201).json({
+      status: "success",
+      animal: animal,
+    });
+
+    console.log(`Ya el Animal ${idAnimal} fue eliminado`);
+  } catch (error) {
+    res.status(400).json({
+      status: "failure",
+      message: error,
+    });
+  }
+};

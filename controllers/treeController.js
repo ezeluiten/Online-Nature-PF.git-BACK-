@@ -108,3 +108,25 @@ exports.updateUpdateTree = async (req, res) => {
     });
   }
 };
+
+exports.deleteTree = async (req, res) => {
+  const {idTree} = req.params;
+
+  try {
+    const tree = await Tree.deleteOne({
+      _id: idTree,
+    });
+
+    res.status(201).json({
+      status: "success",
+      tree: tree,
+    });
+
+    console.log(`Ya el Tree ${idTree} fue eliminado`);
+  } catch (error) {
+    res.status(400).json({
+      status: "failure",
+      message: error,
+    });
+  }
+};
