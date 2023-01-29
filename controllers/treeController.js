@@ -13,6 +13,7 @@ exports.getAllTrees = async (req, res) => {
               image:e.image,
               image_detail:e.image_detail,
               description:e.description,
+              description_raw: e.description_raw,
               amount:e.amount,
               location:e.location,
               species:e.specie
@@ -46,7 +47,7 @@ exports.createTrees = async (req, res) => {
     const { title, specie, amount, location, image, image_detail, description} = arboles
     if (!title || !specie || !amount || !location) return res.status(404).send("Pon datos del arbol");
 
-    const newTree = await Tree.create({title, image, image_detail, amount, specie, location, description });
+    const newTree = await Tree.create({title, image, image_detail, amount, specie, location, description, description_raw });
 
     res.status(201).json({
       status: "success",
@@ -56,6 +57,51 @@ exports.createTrees = async (req, res) => {
       },
     });
   } catch (error) {
+    res.status(400).json({
+      status: "failure",
+      message: error,
+    });
+  }
+};
+
+exports.updateUpdateTree = async (req, res) => {
+
+  try {
+    const body = req.body;
+
+    const { 
+      id,      
+      title,
+      name,
+      image,
+      image_detail,
+      description,
+      description_raw,
+      amount,
+      location,
+      species 
+    } = body;
+
+    let tree = await Tree.findOneAndUpdate(
+      id,{ 
+        title,
+        name,
+        image,
+        image_detail,
+        description,
+        description_raw,
+        amount,
+        location,
+        species 
+      },
+      {
+        new: true,
+      }
+    );
+
+    res.status(201).json(tree);
+  } catch (error) {
+    console.log(error)
     res.status(400).json({
       status: "failure",
       message: error,
