@@ -41,7 +41,7 @@ exports.payItemsCart = async( req, res ) => {
     
     try{
 
-        res.json(mercadopagoResponse)
+        res.status(200).json(mercadopagoResponse)
 
     }catch (error){
         res.status(400).json({

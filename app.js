@@ -2,7 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cloudinary = require("cloudinary").v2;
 const fileUpload = require("express-fileupload")
-
+const cors = require("cors")
 
 const speciesRouter = require('./routes/speciesRoutes')
 const treesRouter = require('./routes/treesRoutes')
@@ -24,6 +24,8 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
+app.use(cors())
+
 app.use(express.json());
 
 
@@ -35,19 +37,23 @@ app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
 });
-console.log("🚀 ~ file: app.js:18 ~ filterController", filterController)
+
+
+
 
 app.use(fileUpload({
   useTempFiles: true,
   limits: {fileSize: 50 * 2024 * 1024 }
 })) 
+const whiteList = ["http://localhost/3000"]
 
-//cors
+
+
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
 
