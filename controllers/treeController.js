@@ -113,14 +113,13 @@ exports.deleteTree = async (req, res) => {
   const {idTree} = req.params;
 
   try {
-    const tree = await Tree.deleteOne({
-      _id: idTree,
-    });
-
-    res.status(201).json({
-      status: "success",
-      tree: tree,
-    });
+    if(idTree) {
+      const tree = await Tree.deleteOne({
+        _id: idTree,
+      });
+      res.status(201).json(tree);
+    }
+    res.status(201).send("No existe un Tree con ese id");
 
     console.log(`Ya el Tree ${idTree} fue eliminado`);
   } catch (error) {
