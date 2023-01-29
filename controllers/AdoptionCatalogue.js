@@ -26,7 +26,7 @@ exports.getCatalogue = async (req, res) => {
 }
 
 exports.deleteAnimal = async (req, res) => {
-    const {idAnimal} = req.params;
+    const {id:idAnimal} = req.params;
     console.log("id animal",idAnimal,req);
 
     try {
@@ -49,7 +49,7 @@ exports.deleteAnimal = async (req, res) => {
   };
 
   exports.deleteTree = async (req, res) => {
-    const {idTree} = req.params;
+    const {id:idTree} = req.params;
     console.log("id trees",idTree);
     try {
       if(idTree) {
