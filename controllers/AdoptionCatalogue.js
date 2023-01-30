@@ -176,6 +176,7 @@ exports.deleteAnimal = async (req, res) => {
         location,
         species,
         amount,
+        
       } = req.body;
       if (!title) return res.status(404).send("Pon un nombre");
   
@@ -203,7 +204,7 @@ exports.deleteAnimal = async (req, res) => {
   exports.createTrees = async (req, res) => {
     try {
       const arboles = req.body
-      const { title, specie, amount, location, image, image_detail, description} = arboles
+      const { title, specie, amount, location, image, image_detail, description, description_raw} = arboles
       if (!title || !specie || !amount || !location) return res.status(404).send("Pon datos del arbol");
   
       const newTree = await Tree.create({title, image, image_detail, amount, specie, location, description, description_raw });
