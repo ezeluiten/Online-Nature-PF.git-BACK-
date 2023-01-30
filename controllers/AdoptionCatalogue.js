@@ -74,7 +74,7 @@ exports.deleteAnimal = async (req, res) => {
 
     try {
       const body = req.body;
-  
+        console.log(body, req)
       const {    
         id, 
         title,
@@ -105,6 +105,7 @@ exports.deleteAnimal = async (req, res) => {
             new: true,
           }
         );
+        console.log(id)
         res.status(201).json(animal);
       }
       res.status(404).send(`No existe el animal con el id ${id}`);
@@ -122,7 +123,7 @@ exports.deleteAnimal = async (req, res) => {
 
     try {
       const body = req.body;
-  
+        console.log(body, req)
       const { 
         id,      
         title,
@@ -152,7 +153,7 @@ exports.deleteAnimal = async (req, res) => {
           new: true,
         }
       );
-  
+        console.log(id)
       res.status(201).json(tree);
     } catch (error) {
       console.log(error)
