@@ -69,3 +69,96 @@ exports.deleteAnimal = async (req, res) => {
       });
     }
   };
+
+  exports.updateAnimal = async (req, res) => {
+
+    try {
+      const body = req.body;
+  
+      const {    
+        id, 
+        title,
+        name,
+        image,
+        image_detail,
+        description,
+        description_raw,
+        amount,
+        location,
+        species 
+      } = body;
+  
+      if(id) {
+        let animal = await Animals.findOneAndUpdate(
+          id,{ 
+            title,
+            name,
+            image,
+            image_detail,
+            description,
+            description_raw,
+            amount,
+            location,
+            species 
+          },
+          {
+            new: true,
+          }
+        );
+        res.status(201).json(animal);
+      }
+      res.status(404).send(`No existe el animal con el id ${id}`);
+      
+    } catch (error) {
+      console.log(error)
+      res.status(400).json({
+        status: "failure",
+        message: error,
+      });
+    }
+  };
+
+  exports.updateTree = async (req, res) => {
+
+    try {
+      const body = req.body;
+  
+      const { 
+        id,      
+        title,
+        name,
+        image,
+        image_detail,
+        description,
+        description_raw,
+        amount,
+        location,
+        species 
+      } = body;
+  
+      let tree = await Tree.findOneAndUpdate(
+        id,{ 
+          title,
+          name,
+          image,
+          image_detail,
+          description,
+          description_raw,
+          amount,
+          location,
+          species 
+        },
+        {
+          new: true,
+        }
+      );
+  
+      res.status(201).json(tree);
+    } catch (error) {
+      console.log(error)
+      res.status(400).json({
+        status: "failure",
+        message: error,
+      });
+    }
+  };
