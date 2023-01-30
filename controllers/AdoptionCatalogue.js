@@ -90,7 +90,7 @@ exports.deleteAnimal = async (req, res) => {
   
       if(id) {
         let animal = await Animals.findOneAndUpdate(
-          id,{ 
+          _id=id,{ 
             title,
             name,
             image,
@@ -138,7 +138,7 @@ exports.deleteAnimal = async (req, res) => {
       } = body;
   
       let tree = await Tree.findOneAndUpdate(
-        id,{ 
+        _id=id,{ 
           title,
           name,
           image,
@@ -163,3 +163,57 @@ exports.deleteAnimal = async (req, res) => {
       });
     }
   };
+
+  exports.createAnimal = async (req, res) => {
+    try {
+      const {
+        title,
+        name,
+        image,
+        image_detail,
+        description,
+        description_raw,
+        location,
+        species,
+        amount,
+        
+      } = req.body;
+      if (!title) return res.status(404).send("Pon un nombre");
+  
+      const newAnimal = await Animals.create({
+        title,
+        name,
+        image,
+        image_detail,
+        description,
+        description_raw,
+        amount,
+        location,
+        species,
+      });
+  
+      res.status(201).json(newAnimal);
+    } catch (error) {
+      res.status(400).json({
+        status: "failure",
+        message: error,
+      });
+    }
+  };
+
+  exports.createTrees = async (req, res) => {
+    try {
+      const arboles = req.body
+      const { title, specie, amount, location, image, image_detail, description, description_raw} = arboles
+      if (!title || !specie || !amount || !location) return res.status(404).send("Pon datos del arbol");
+  
+      const newTree = await Tree.create({title, image, image_detail, amount, specie, location, description, description_raw });
+  
+      res.status(201).json(newTree);
+    } catch (error) {
+      res.status(400).json({
+        status: "failure",
+        message: error,
+      });
+    }
+};
