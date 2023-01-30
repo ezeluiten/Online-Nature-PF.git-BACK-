@@ -8,6 +8,8 @@ router
     .get(adoptionController.getCatalogue)
     .put(adoptionController.updateAnimal)
     .put(adoptionController.updateTree)
+    .post(adoptionController.createAnimal)
+    .post(adoptionController.createTrees);
 
 router.route("/:id").delete(adoptionController.deleteAnimal)
 router.route("/:id").delete(adoptionController.deleteTree)
