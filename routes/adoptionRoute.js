@@ -10,12 +10,12 @@ router
 router.route("/animals")
     .post(adoptionController.createAnimal)
     .put(adoptionController.updateAnimal)
-router.route("animals/:id").delete(adoptionController.deleteAnimal)
+router.route("/animals/:id").delete(adoptionController.deleteAnimal)
 
 router.route("/trees")
     .put(adoptionController.updateTree)
     .post(adoptionController.createTrees)
-router.route("trees/:id").delete(adoptionController.deleteTree)
+router.route("/trees/:id").delete(adoptionController.deleteTree)
 
 
 // router.route("/:id").put(adoptionController.updateAnimal)
