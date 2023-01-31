@@ -6,14 +6,18 @@ const router = express.Router()
 router
     .route("/")
     .get(adoptionController.getCatalogue)
-    .put(adoptionController.updateAnimal)
-    .put(adoptionController.updateTree)
+
+router.route("/animals")
     .post(adoptionController.createAnimal)
-    .post(adoptionController.createTrees);
+    .put(adoptionController.updateAnimal)
+router.route("animals/:id").delete(adoptionController.deleteAnimal)
 
-router.route("/:id").delete(adoptionController.deleteAnimal)
-router.route("/:id").delete(adoptionController.deleteTree)
+router.route("/trees")
+    .put(adoptionController.updateTree)
+    .post(adoptionController.createTrees)
+router.route("trees/:id").delete(adoptionController.deleteTree)
 
-router.route("/:id").put(adoptionController.updateAnimal)
-router.route("/:id").put(adoptionController.updateTree)
+
+// router.route("/:id").put(adoptionController.updateAnimal)
+// router.route("/:id").put(adoptionController.updateTree)
 module.exports = router
