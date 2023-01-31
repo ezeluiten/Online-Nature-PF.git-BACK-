@@ -26,7 +26,6 @@ const threesSchema = new mongoose.Schema({
   },
   description_raw: {
     type: String,
-    require: true
   },
   specie: {
     type: String,
