@@ -13,7 +13,6 @@ exports.getAllTrees = async (req, res) => {
               image:e.image,
               image_detail:e.image_detail,
               description:e.description,
-              description_raw: e.description_raw,
               amount:e.amount,
               location:e.location,
               species:e.specie
@@ -47,7 +46,7 @@ exports.createTrees = async (req, res) => {
     const { title, specie, amount, location, image, image_detail, description} = arboles
     if (!title || !specie || !amount || !location) return res.status(404).send("Pon datos del arbol");
 
-    const newTree = await Tree.create({title, image, image_detail, amount, specie, location, description, description_raw });
+    const newTree = await Tree.create({title, image, image_detail, amount, specie, location, description});
 
     res.status(201).json({
       status: "success",
@@ -76,7 +75,6 @@ exports.updateUpdateTree = async (req, res) => {
       image,
       image_detail,
       description,
-      description_raw,
       amount,
       location,
       species 
@@ -89,7 +87,6 @@ exports.updateUpdateTree = async (req, res) => {
         image,
         image_detail,
         description,
-        description_raw,
         amount,
         location,
         species 
