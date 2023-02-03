@@ -40,7 +40,7 @@ exports.getDonations = async (req, res) => {
       status: "success",
       requestedAt: req.requestedAt,
       data: {
-        donations: donations,
+        donations
       },
     });
   } catch (error) {
