@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const donationsSchema = new mongoose.Schema({
   amount: {
-    type: String,
+    type: Number,
     required: true,
   },
   client: [{ type: mongoose.Schema.Types.ObjectId, ref: "clients" }],
