@@ -31,7 +31,7 @@ exports.payItemsCart = async( req, res ) => {
             
         },
         auto_return:"approved",
-        notification_url:"http://localhost:3001/api/v1/paymentNotificationRoutes"
+        notification_url:`${process.env.PRODUCTION_URL}${paymentNotificationRoutes}`
     }
 
     const mercadopagoResponse = await mercadopago.preferences.create(preference)
