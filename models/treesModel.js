@@ -29,7 +29,11 @@ const threesSchema = new mongoose.Schema({
   },
   specie: {
     type: String,
-    required: true
+    // required: true
+  },
+  item_type: {
+    type: String,
+    // require: true
   },
   location: [{ type: mongoose.Schema.Types.ObjectId, ref: "locations" }],
 });
