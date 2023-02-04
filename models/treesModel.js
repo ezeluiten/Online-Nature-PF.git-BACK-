@@ -17,16 +17,23 @@ const threesSchema = new mongoose.Schema({
     required: true,
   },
   amount: {
-    type: String,
+    type: Number,
     required: true,
   },
   description: {
     type: String,
     required: true
   },
+  description_raw: {
+    type: String,
+  },
   specie: {
     type: String,
-    required: true
+    // required: true
+  },
+  item_type: {
+    type: String,
+    // require: true
   },
   location: [{ type: mongoose.Schema.Types.ObjectId, ref: "locations" }],
 });

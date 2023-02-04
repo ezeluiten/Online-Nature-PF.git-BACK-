@@ -2,7 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cloudinary = require("cloudinary").v2;
 const fileUpload = require("express-fileupload")
-const cors = require('cors')
+const cors = require("cors")
 
 const speciesRouter = require('./routes/speciesRoutes')
 const treesRouter = require('./routes/treesRoutes')
@@ -93,9 +93,6 @@ app.use("/api/v1/filterController", filterRoutes);
 app.use("/api/v1/checkOutController", checkOutRoutes);
 app.use("/api/v1/successController", successRoutes);
 app.use("/api/v1/paymentNotificationRoutes", paymentNotificationRoutes);
-
-
-//cors
 
 
 app.use((req, res) => {
