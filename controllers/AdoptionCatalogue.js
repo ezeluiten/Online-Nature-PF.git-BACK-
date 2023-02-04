@@ -85,7 +85,8 @@ exports.deleteAnimal = async (req, res) => {
         description_raw,
         amount,
         location,
-        species 
+        species,
+        item_type 
       } = body;
   
       if(id) {
@@ -99,7 +100,8 @@ exports.deleteAnimal = async (req, res) => {
             description_raw,
             amount,
             location,
-            species 
+            species,
+            item_type
           },
           {
             new: true,
@@ -134,7 +136,8 @@ exports.deleteAnimal = async (req, res) => {
         description_raw,
         amount,
         location,
-        species 
+        species,
+        item_type
       } = body;
   
       let tree = await Tree.findOneAndUpdate(
@@ -147,7 +150,8 @@ exports.deleteAnimal = async (req, res) => {
           description_raw,
           amount,
           location,
-          species 
+          species,
+          item_type
         },
         {
           new: true,
@@ -172,11 +176,7 @@ exports.deleteAnimal = async (req, res) => {
         image,
         image_detail,
         description,
-        description_raw,
-        location,
-        species,
-        amount,
-        
+        amount,   
       } = req.body;
       if (!title) return res.status(404).send("Pon un nombre");
   
@@ -186,10 +186,7 @@ exports.deleteAnimal = async (req, res) => {
         image,
         image_detail,
         description,
-        description_raw,
         amount,
-        location,
-        species,
       });
   
       res.status(201).json(newAnimal);
@@ -204,10 +201,10 @@ exports.deleteAnimal = async (req, res) => {
   exports.createTrees = async (req, res) => {
     try {
       const arboles = req.body
-      const { title, specie, amount, location, image, image_detail, description, description_raw} = arboles
-      if (!title || !specie || !amount || !location) return res.status(404).send("Pon datos del arbol");
+      const { title, specie, amount, location, image, image_detail, description} = arboles
+      if (!title) return res.status(404).send("Pon datos del arbol");
   
-      const newTree = await Tree.create({title, image, image_detail, amount, specie, location, description, description_raw });
+      const newTree = await Tree.create({title, image, image_detail, amount, specie, location, description});
   
       res.status(201).json(newTree);
     } catch (error) {
@@ -216,4 +213,63 @@ exports.deleteAnimal = async (req, res) => {
         message: error,
       });
     }
+};
+
+
+exports.getAllAnimals = async (req, res) => {
+  try {
+    const animals = await Animals.find({});
+    if (!animals.length)
+      return res.status(404).send("No hay animales por aqui :C");
+
+    const animal = [];
+    animals.map((e) => {
+      animal.push({
+        title: e.title,
+        image: e.image,
+        image_detail: e.image_detail,
+        description: e.description,
+        description_raw: e.description_raw,
+        amount: e.amount,
+        location: e.location,
+        species: e.species,
+        item_type: e.item_type
+      });
+    });
+    res.status(201).json(animal);
+  } catch (error) {
+    res.status(400).json({
+      status: "failure",
+      message: error,
+    });
+  }
+};
+
+exports.getAllTrees = async (req, res) => {
+  try {
+    const trees = await Tree.find({});
+    if (!trees.length)
+      return res.status(404).send("No hay arboles por aqui :C");
+
+      const tree = []
+      trees.map(e => {
+          tree.push({
+              title:e.title,
+              image:e.image,
+              image_detail:e.image_detail,
+              description:e.description,
+              amount:e.amount,
+              location:e.location,
+              species:e.specie,
+              item_type: e.item_type
+          })
+      })
+      
+    res.status(201).json(tree);
+  } catch (error) {
+    res.status(400).json({
+      status: "failure",
+      message: error,
+    });
+  }
 };
