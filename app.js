@@ -10,12 +10,14 @@ const orgRoutes = require('./routes/orgsRoutes')
 const clientRouter = require("./routes/clientRoutes");
 const animalRouter = require("./routes/animalRoutes");
 const publicationsRoutes = require("./routes/publicationRoutes");
-const donationsController = require("./routes/donationRoutes");
-const locationController = require("./routes/locationRouters");
-const forestController = require("./routes/forestRoutes")
-const adoptionController = require("./routes/adoptionRoute")
-const filterController = require("./routes/filtersRoutes")
-const checkOutController = require("./routes/checkOutRoutes")
+const donationsRoutes = require("./routes/donationRoutes");
+const locationRoutes = require("./routes/locationRouters");
+const forestRoutes = require("./routes/forestRoutes")
+const adoptionRoutes = require("./routes/adoptionRoute")
+const filterRoutes = require("./routes/filtersRoutes")
+const checkOutRoutes = require("./routes/checkOutRoutes")
+const successRoutes = require("./routes/successRouteRedirection")
+const paymentNotificationRoutes = require("./routes/paymentNotificationRoutes")
 
 const app = express();
 
@@ -83,12 +85,14 @@ app.use('/api/v1/orgs', orgRoutes);
 app.use("/api/v1/clients", clientRouter);
 app.use("/api/v1/animals", animalRouter);
 app.use("/api/v1/publications", publicationsRoutes);
-app.use("/api/v1/donations", donationsController);
-app.use("/api/v1/locations", locationController);
-app.use("/api/v1/forest", forestController);
-app.use("/api/v1/adoptionCatalogue", adoptionController);
-app.use("/api/v1/filterController", filterController);
-app.use("/api/v1/checkOutController", checkOutController);
+app.use("/api/v1/donations", donationsRoutes);
+app.use("/api/v1/locations", locationRoutes);
+app.use("/api/v1/forest", forestRoutes);
+app.use("/api/v1/adoptionCatalogue", adoptionRoutes);
+app.use("/api/v1/filterController", filterRoutes);
+app.use("/api/v1/checkOutController", checkOutRoutes);
+app.use("/api/v1/successController", successRoutes);
+app.use("/api/v1/paymentNotificationRoutes", paymentNotificationRoutes);
 
 
 //cors
@@ -109,7 +113,8 @@ app.use((req, res) => {
       "/species",
       "/adoptionCatalogue",
       "/filterController",
-      "/checkOutController"
+      "/checkOutController",
+      "/paymentNotificationRoutes",
     ],
   });
 });

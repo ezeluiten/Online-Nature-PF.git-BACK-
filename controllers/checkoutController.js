@@ -3,45 +3,42 @@ const { mercadopago } = require("../utils/mercadoPago")
 
 exports.payItemsCart = async( req, res ) => {
     const itemsCart = req.body
-    console.log("🚀 ~ file: checkoutController.js:6 ~ exports.payItemsCart=async ~ itemsCart", itemsCart)
-    console.log("🚀 ~ file: checkoutController.js:6 ~ exports.payItemsCart=async ~ req.body", typeof req.body)
     const {items, totalAmount, payer} = itemsCart
 
     items.forEach(element => {
-        console.log("🚀 ~ file: checkoutController.js:11 ~ exports.payItemsCart=async ~ element", element)
         element.description = element.description.substr(0,200)
-        console.log("🚀 ~ file: checkoutController.js:13 ~ exports.payItemsCart=async ~ element", element)
     });
 
     const normalizedItems = items.map(element=>{
         return{
+            id:element._id,
             title: element.title,
+            picture_url:element.image,
             description: element.description,
-            currency_id: "$",
+            currency_id: "COP",
             quantity: element.quantity,
-            unit_price: parseInt(element.amount)
+            unit_price: parseInt(element.amount * 500)
         }
     })
 
     let preference = {
         total_amount: totalAmount * 1.15,
         items:normalizedItems,
-        payer,
         back_urls:{
-            "success": "http://localhost:3000/campaign",
-            "failure": "http://localhost:3000/campaign",
-            "pending": "http://localhost:3000/campaign",
+            success: "http://localhost:3001/success",
+            failure: "http://localhost:3000/campaign",
+            pending: "http://localhost:3000/campaign",
             
         },
-        auto_return:"approved"
+        auto_return:"approved",
+        notification_url:"http://localhost:3001/api/v1/paymentNotificationRoutes"
     }
 
     const mercadopagoResponse = await mercadopago.preferences.create(preference)
-    console.log("🚀 ~ file: checkoutController.js:25 ~ exports.payItemsCart=async ~ mercadopagoResponse", mercadopagoResponse)
     
     try{
 
-        res.status(200).json(mercadopagoResponse)
+        res.status(200).json(mercadopagoResponse.body.id)
 
     }catch (error){
         res.status(400).json({
