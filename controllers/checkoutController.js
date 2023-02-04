@@ -17,7 +17,7 @@ exports.payItemsCart = async( req, res ) => {
             description: element.description,
             currency_id: "COP",
             quantity: element.quantity,
-            unit_price: parseInt(element.amount * 500)
+            unit_price: parseInt(element.amount)
         }
     })
 
