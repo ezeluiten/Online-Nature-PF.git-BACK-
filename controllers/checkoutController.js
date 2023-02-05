@@ -17,7 +17,7 @@ exports.payItemsCart = async( req, res ) => {
             description: element.description,
             currency_id: "COP",
             quantity: element.quantity,
-            unit_price: parseInt(element.amount * 500)
+            unit_price: parseInt(element.amount)
         }
     })
 
@@ -31,7 +31,7 @@ exports.payItemsCart = async( req, res ) => {
             
         },
         auto_return:"approved",
-        notification_url:`${process.env.PRODUCTION_URL}${paymentNotificationRoutes}`
+        notification_url:`${process.env.PRODUCTION_URL}${"paymentNotificationRoutes"}`
     }
 
     const mercadopagoResponse = await mercadopago.preferences.create(preference)
