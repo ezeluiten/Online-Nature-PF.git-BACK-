@@ -3,6 +3,7 @@ const Client = require("../models/clientModel");
 exports.createClient = async (req, res) => {
   try {
     const client = req.body;
+    console.log("🚀 ~ file: clientController.js:6 ~ exports.createClient= ~ client", client)
 
     const { name, mail, phone, dni } = client;
 
