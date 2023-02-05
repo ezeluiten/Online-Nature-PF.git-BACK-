@@ -74,7 +74,6 @@ exports.deleteAnimal = async (req, res) => {
 
     try {
       const body = req.body;
-        console.log(body, req)
       const {    
         id, 
         title,
@@ -89,8 +88,7 @@ exports.deleteAnimal = async (req, res) => {
         item_type 
       } = body;
   
-      if(id) {
-        let animal = await Animals.findOneAndUpdate(
+        let animal = await Animals.findByIdAndUpdate(
           _id=id,{ 
             title,
             name,
@@ -105,13 +103,11 @@ exports.deleteAnimal = async (req, res) => {
           },
           {
             new: true,
+            runValidators: true
           }
         );
-        console.log(id)
         res.status(201).json(animal);
-      }
-      res.status(404).send(`No existe el animal con el id ${id}`);
-      
+  
     } catch (error) {
       console.log(error)
       res.status(400).json({
@@ -125,7 +121,7 @@ exports.deleteAnimal = async (req, res) => {
 
     try {
       const body = req.body;
-        console.log(body, req)
+
       const { 
         id,      
         title,
@@ -140,7 +136,7 @@ exports.deleteAnimal = async (req, res) => {
         item_type
       } = body;
   
-      let tree = await Tree.findOneAndUpdate(
+      let tree = await Tree.findByIdAndUpdate(
         _id=id,{ 
           title,
           name,
@@ -155,9 +151,9 @@ exports.deleteAnimal = async (req, res) => {
         },
         {
           new: true,
+          runValidators: true
         }
       );
-        console.log(id)
       res.status(201).json(tree);
     } catch (error) {
       console.log(error)
@@ -225,6 +221,7 @@ exports.getAllAnimals = async (req, res) => {
     const animal = [];
     animals.map((e) => {
       animal.push({
+        id:e._id,
         title: e.title,
         image: e.image,
         image_detail: e.image_detail,
@@ -254,6 +251,7 @@ exports.getAllTrees = async (req, res) => {
       const tree = []
       trees.map(e => {
           tree.push({
+              id:e._id,
               title:e.title,
               image:e.image,
               image_detail:e.image_detail,
