@@ -23,7 +23,6 @@ exports.getMercadopagoNotification = async( req, res ) => {
         },
         currency_id: merchantOrder.body.currency_id
     }
-    console.log("🚀 ~ file: ticketController.js:27 ~ exports.getMercadopagoNotification=async ~ ticketInformation", ticketInformation)
   
     const ticketCreation = await Ticket.create(
         ticketInformation
@@ -34,7 +33,7 @@ exports.getMercadopagoNotification = async( req, res ) => {
         res.status(201).send({
             status:"success",
             requestedAt:req.requestedAt,
-            data:"success"
+            data:ticketCreation
         })
 
     }catch (error){
