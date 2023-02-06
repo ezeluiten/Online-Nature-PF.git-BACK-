@@ -26,7 +26,7 @@ exports.payItemsCart = async( req, res ) => {
         total_amount: totalAmount * 1.15,
         items:normalizedItems,
         back_urls:{
-            success: "http://localhost:3000/campaign",
+            success: "https://online-nature-pf-front-git-main-ezeluiten.vercel.app/campaign",
             failure: "http://localhost:3000/campaign",
             pending: "http://localhost:3000/campaign",
             
@@ -40,7 +40,7 @@ exports.payItemsCart = async( req, res ) => {
             name:payer.name || "none",
             email:payer.mail
         },
-        notification_url:`${"https://1267-2800-e2-2780-16ec-b1e6-75bd-3870-f8dd.ngrok.io/api/v1/"}${"ticket"}`
+        notification_url:`${"https://craven-sign-production.up.railway.app/api/v1/"}${"ticket"}`
     }
     console.log("🚀 ~ file: checkoutController.js:36 ~ exports.payItemsCart=async ~ preference", preference)
 
