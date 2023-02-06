@@ -1,5 +1,5 @@
 const express = require("express")
-const paymentNotificationController = require("./../controllers/paymentNotificationController")
+const paymentNotificationController = require("../controllers/ticketController")
 
 const router = express.Router()
 

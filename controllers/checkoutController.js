@@ -25,13 +25,13 @@ exports.payItemsCart = async( req, res ) => {
         total_amount: totalAmount * 1.15,
         items:normalizedItems,
         back_urls:{
-            success: "http://localhost:3001/success",
+            success: "https://craven-sign-production.up.railway.app/api/v1/successRouteRedirection",
             failure: "http://localhost:3000/campaign",
             pending: "http://localhost:3000/campaign",
             
         },
         auto_return:"approved",
-        notification_url:`${process.env.PRODUCTION_URL}${"paymentNotificationRoutes"}`
+        notification_url:`${"https://craven-sign-production.up.railway.app/api/v1/"}${"ticket"}`
     }
 
     const mercadopagoResponse = await mercadopago.preferences.create(preference)
