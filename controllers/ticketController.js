@@ -4,7 +4,7 @@ const Ticket = require("../models/ticketModel")
 exports.getMercadopagoNotification = async( req, res ) => {
     const { body , query, params } = req
     const idPayment = await body && body.data && body.data.id
-    const merchantOrder = await mercadopago.payment.findById(idPayment)
+    const merchantOrder = await mercadopago.payment.get(idPayment)
 
     const ticketInformation = {
         payment_id : merchantOrder.body.id,
