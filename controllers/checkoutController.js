@@ -4,6 +4,7 @@ const { mercadopago } = require("../utils/mercadoPago")
 exports.payItemsCart = async( req, res ) => {
     const itemsCart = req.body
     const {items, totalAmount, payer} = itemsCart
+    console.log("🚀 ~ file: checkoutController.js:7 ~ exports.payItemsCart=async ~ payer", payer)
 
     items.forEach(element => {
         element.description = element.description.substr(0,200)
@@ -25,14 +26,23 @@ exports.payItemsCart = async( req, res ) => {
         total_amount: totalAmount * 1.15,
         items:normalizedItems,
         back_urls:{
-            success: "https://craven-sign-production.up.railway.app/api/v1/successRouteRedirection",
+            success: "http://localhost:3000/campaign",
             failure: "http://localhost:3000/campaign",
             pending: "http://localhost:3000/campaign",
             
         },
         auto_return:"approved",
-        notification_url:`${"https://craven-sign-production.up.railway.app/api/v1/"}${"ticket"}`
+        payer:{
+            phone:{
+                area_code:"+57",
+                number:payer.phone||0000000
+            },
+            name:payer.name || "none",
+            email:payer.mail
+        },
+        notification_url:`${"https://1267-2800-e2-2780-16ec-b1e6-75bd-3870-f8dd.ngrok.io/api/v1/"}${"ticket"}`
     }
+    console.log("🚀 ~ file: checkoutController.js:36 ~ exports.payItemsCart=async ~ preference", preference)
 
     const mercadopagoResponse = await mercadopago.preferences.create(preference)
     

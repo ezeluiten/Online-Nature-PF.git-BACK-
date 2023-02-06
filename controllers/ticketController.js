@@ -3,12 +3,16 @@ const Ticket = require("../models/ticketModel")
 
 exports.getMercadopagoNotification = async( req, res ) => {
     const { body , query, params } = req
+    console.log("🚀 ~ file: ticketController.js:6 ~ exports.getMercadopagoNotification=async ~ body", body)
     const idPayment = await body && body.data && body.data.id
+    console.log("🚀 ~ file: ticketController.js:8 ~ exports.getMercadopagoNotification=async ~ idPayment", idPayment)
     const merchantOrder = await mercadopago.payment.get(idPayment)
+    console.log("🚀 ~ file: ticketController.js:10 ~ exports.getMercadopagoNotification=async ~ merchantOrder", merchantOrder)
 
     const ticketInformation = {
         payment_id : merchantOrder.body.id,
         items : merchantOrder.body.additional_info.items,
+        payer : merchantOrder.body.additional_info.payer,
         date_approved: merchantOrder.body.date_approved,
         deductions_frequency : merchantOrder.body.installments,
         operation_type: merchantOrder.body.operation_type,
@@ -27,6 +31,7 @@ exports.getMercadopagoNotification = async( req, res ) => {
     const ticketCreation = await Ticket.create(
         ticketInformation
     )
+    console.log("🚀 ~ file: ticketController.js:33 ~ exports.getMercadopagoNotification=async ~ ticketCreation", ticketCreation)
 
     try{
         
@@ -34,6 +39,26 @@ exports.getMercadopagoNotification = async( req, res ) => {
             status:"success",
             requestedAt:req.requestedAt,
             data:ticketCreation
+        })
+
+    }catch (error){
+        res.status(400).json({
+            status: "failure",
+            message: error
+        })
+    }
+}
+exports.getTickets = async( req, res ) => {
+    
+    const tickets = await Ticket.find({})
+
+
+    try{
+        
+        res.status(201).send({
+            status:"success",
+            requestedAt:req.requestedAt,
+            data:tickets
         })
 
     }catch (error){
