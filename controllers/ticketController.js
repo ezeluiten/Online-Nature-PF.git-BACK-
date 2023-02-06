@@ -5,8 +5,8 @@ exports.getMercadopagoNotification = async( req, res ) => {
     const { body , query, params } = req
     
     const merchantOrder = await mercadopago.payment.findById(body.data.id)
-    console.log("🚀 ~ file: ticketController.js:8 ~ exports.getMercadopagoNotification=async ~ merchantOrder", merchantOrder)
     console.log("🚀 ~ file: ticketController.js:6 ~ exports.getMercadopagoNotification=async ~ body", body)
+    console.log("🚀 ~ file: ticketController.js:8 ~ exports.getMercadopagoNotification=async ~ merchantOrder", merchantOrder)
 
     const ticketInformation = {
         payment_id : merchantOrder.body.id,
