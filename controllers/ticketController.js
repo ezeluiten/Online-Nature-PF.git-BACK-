@@ -3,8 +3,10 @@ const Ticket = require("../models/ticketModel")
 
 exports.getMercadopagoNotification = async( req, res ) => {
     const { body , query, params } = req
+    console.log("🚀 ~ file: ticketController.js:6 ~ exports.getMercadopagoNotification=async ~ body", body)
 
     const merchantOrder = await mercadopago.payment.findById(body.data.id)
+    console.log("🚀 ~ file: ticketController.js:8 ~ exports.getMercadopagoNotification=async ~ merchantOrder", merchantOrder)
 
     const ticketInformation = {
         payment_id : merchantOrder.body.id,
@@ -23,6 +25,7 @@ exports.getMercadopagoNotification = async( req, res ) => {
         },
         currency_id: merchantOrder.body.currency_id
     }
+    console.log("🚀 ~ file: ticketController.js:27 ~ exports.getMercadopagoNotification=async ~ ticketInformation", ticketInformation)
   
     const ticketCreation = await Ticket.create(
         ticketInformation
