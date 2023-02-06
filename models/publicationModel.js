@@ -10,8 +10,7 @@ const publicationSchema = new mongoose.Schema({
     required: true,
   },
   date:{
-    type:Date,
-    // required:true,
+    type: Date, default: Date.now
   },
   client: [{ type: mongoose.Schema.Types.ObjectId, ref: 'clients' }]
 });

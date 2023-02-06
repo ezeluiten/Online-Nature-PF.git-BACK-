@@ -1,7 +1,14 @@
 const mongoose = require("mongoose");
 
 const threesSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+  },
   name: {
+    type: String,
+  },
+  image: {
     type: String,
     required: true,
   },
@@ -15,7 +22,7 @@ const threesSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: true,
+    required: true
   },
   description_raw: {
     type: String,
@@ -28,8 +35,6 @@ const threesSchema = new mongoose.Schema({
     type: String,
     // require: true
   },
-  species: [{ type: mongoose.Schema.Types.ObjectId, ref: "species" }],
-  donations: [{ type: mongoose.Schema.Types.ObjectId, ref: "donations" }],
   location: [{ type: mongoose.Schema.Types.ObjectId, ref: "locations" }],
   type: {
     type: String,

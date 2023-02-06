@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const animalSchema = new mongoose.Schema({
-  name: {
+  title: {
     type: String,
     required: true,
   },
@@ -27,6 +27,33 @@ const animalSchema = new mongoose.Schema({
   amount: {
     type: Number,
     require: true,
+  },
+  item_type: {
+    type: String,
+    // require: true
+  },
+  name: {
+    type: String,
+  },
+  image: {
+    type: String,
+    require: true
+  },
+  image_detail: {
+    type: String,
+    require: true
+  },
+  description: {
+    type: String,
+    require: true
+  },
+  description_raw: {
+    type: String,
+    // require: true
+  },
+  amount: {
+    type: Number,
+    require: true
   },
   item_type: {
     type: String,
