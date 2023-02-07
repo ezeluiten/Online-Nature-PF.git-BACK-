@@ -16,13 +16,12 @@ module.exports = () => {
             },
             (err) => {
                 if (err) {
-                    console.log('DB: ERROR !!');
+                    console.log(err);
                 } else {
-                    console.log('Conexion correcta!!')
+                    console.log('Conección correcta!!')
                 }
             }
         )
-
     }
     connect();
 }
