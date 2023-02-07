@@ -313,3 +313,78 @@ exports.getAllTrees = async (req, res) => {
       })
     }
   }
+
+  exports.updateAll = async (req, res) => {
+    const body = req.body;
+
+    const {
+      title,
+      name,
+      image,
+      image_detail,
+      description,
+      description_raw,
+      amount,
+      location,
+      species,
+      item_type,
+    } = body;
+    const { id: idItem } = req.params;
+        const animal = await Animals.find({ _id: idItem });
+
+        const tree = await Tree.find({ _id: idItem });
+        const specie = animal && animal.length > 0 ? true : false;
+  try {
+  
+  if (specie) {
+     let animal = await Animals.findByIdAndUpdate(
+       (_id = idItem),
+       {
+         title,
+         name,
+         image,
+         image_detail,
+         description,
+         description_raw,
+         amount,
+         location,
+         species,
+         item_type,
+       },
+       {
+         new: true,
+         runValidators: true,
+       }
+     );
+     res.status(201).json(animal);
+  } else {
+  let tree = await Tree.findByIdAndUpdate(
+    (_id = idItem),
+    {
+      title,
+      name,
+      image,
+      image_detail,
+      description,
+      description_raw,
+      amount,
+      location,
+      species,
+      item_type,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  res.status(201).json(tree);
+  }
+   
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: "failure",
+      message: error,
+    });
+  }
+};
