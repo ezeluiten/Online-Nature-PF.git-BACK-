@@ -17,7 +17,7 @@ const adoptionRoutes = require("./routes/adoptionRoute")
 const filterRoutes = require("./routes/filtersRoutes")
 const checkOutRoutes = require("./routes/checkOutRoutes")
 const successRoutes = require("./routes/successRouteRedirection")
-const paymentNotificationRoutes = require("./routes/paymentNotificationRoutes")
+const ticketRoutes = require("./routes/ticketRoutes")
 
 const app = express();
 
@@ -79,6 +79,7 @@ app.post("/imagesTrees", async(req, res) => {
 })
 
 // 3) ROUTES
+
 app.use("/api/v1/species", speciesRouter);
 app.use("/api/v1/trees", treesRouter);
 app.use('/api/v1/orgs', orgRoutes);
@@ -92,7 +93,7 @@ app.use("/api/v1/adoptionCatalogue", adoptionRoutes);
 app.use("/api/v1/filterController", filterRoutes);
 app.use("/api/v1/checkOutController", checkOutRoutes);
 app.use("/api/v1/successController", successRoutes);
-app.use("/api/v1/paymentNotificationRoutes", paymentNotificationRoutes);
+app.use("/api/v1/ticket", ticketRoutes);
 
 
 app.use((req, res) => {
@@ -111,10 +112,11 @@ app.use((req, res) => {
       "/adoptionCatalogue",
       "/filterController",
       "/checkOutController",
-      "/paymentNotificationRoutes",
+      "/ticket",
     ],
   });
 });
+
 
 module.exports = app;
 
