@@ -39,10 +39,10 @@ exports.payItemsCart = async( req, res ) => {
             },
             name:payer.name || "none",
             email:payer.mail,
-            client_id: payer.client_id,
+            client_id: payer._id,
         },
         metadata:{
-            payer_id:payer.client_id
+            payer_id:payer._id
         },
         notification_url:`${"https://craven-sign-production.up.railway.app/api/v1/"}${"ticket"}`
     }
