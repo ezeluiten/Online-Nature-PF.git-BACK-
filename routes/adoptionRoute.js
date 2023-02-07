@@ -6,6 +6,8 @@ const router = express.Router()
 router
     .route("/")
     .get(adoptionController.getCatalogue)
+    // .get(adoptionController.getItemByName)
+// router.route("/").get(adoptionController.getItemByName)
 
 router.route("/animals")
     .get(adoptionController.getAllAnimals)
