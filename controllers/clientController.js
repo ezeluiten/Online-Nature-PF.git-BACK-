@@ -3,6 +3,7 @@ const Client = require("../models/clientModel");
 exports.createClient = async (req, res) => {
   try {
     const client = req.body;
+    console.log("🚀 ~ file: clientController.js:6 ~ exports.createClient= ~ client", client, req)
 
     const { name, mail, phone, dni } = client;
 
@@ -29,24 +30,12 @@ exports.createClient = async (req, res) => {
 };
 
 exports.getAllClients = async (req, res) => {
-  const idClient = req.params.id;
-  if (idClient) {
-    try {
-      const clients = await Client.find({ _id: idClient });
-      console.log(clients);
-    } catch (error) {
-      res.status(400).json({
-        status: "failure",
-        message: error,
-      });
-    }
-  }
 
   try {
     const clients = await Client.find({});
 
     if (!clients.length)
-      return res.status(404).send("No hay cliente por aqui :c");
+      return res.status(204).send("No hay cliente por aqui :c");
 
     res.status(201).json(clients);
   } catch (error) {

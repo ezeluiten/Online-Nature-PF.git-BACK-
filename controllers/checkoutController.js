@@ -3,21 +3,20 @@ const { mercadopago } = require("../utils/mercadoPago")
 
 exports.payItemsCart = async( req, res ) => {
     const itemsCart = req.body
-    console.log("🚀 ~ file: checkoutController.js:6 ~ exports.payItemsCart=async ~ itemsCart", itemsCart)
-    console.log("🚀 ~ file: checkoutController.js:6 ~ exports.payItemsCart=async ~ req.body", typeof req.body)
     const {items, totalAmount, payer} = itemsCart
+    console.log("🚀 ~ file: checkoutController.js:7 ~ exports.payItemsCart=async ~ payer", payer)
 
     items.forEach(element => {
-        console.log("🚀 ~ file: checkoutController.js:11 ~ exports.payItemsCart=async ~ element", element)
         element.description = element.description.substr(0,200)
-        console.log("🚀 ~ file: checkoutController.js:13 ~ exports.payItemsCart=async ~ element", element)
     });
 
     const normalizedItems = items.map(element=>{
         return{
+            id:element._id,
             title: element.title,
+            picture_url:element.image,
             description: element.description,
-            currency_id: "$",
+            currency_id: "COP",
             quantity: element.quantity,
             unit_price: parseInt(element.amount)
         }
@@ -26,22 +25,29 @@ exports.payItemsCart = async( req, res ) => {
     let preference = {
         total_amount: totalAmount * 1.15,
         items:normalizedItems,
-        payer,
         back_urls:{
-            "success": "http://localhost:3000/campaign",
-            "failure": "http://localhost:3000/campaign",
-            "pending": "http://localhost:3000/campaign",
+            success: "https://online-nature-pf-front-git-main-ezeluiten.vercel.app/campaign",
+            failure: "http://localhost:3000/campaign",
+            pending: "http://localhost:3000/campaign",
             
         },
-        auto_return:"approved"
+        auto_return:"approved",
+        payer:{
+            phone:{
+                area_code:"+57",
+                number:payer.phone||0000000
+            },
+            name:payer.name || "none",
+            email:payer.mail
+        },
+        notification_url:`${"https://craven-sign-production.up.railway.app/api/v1/"}${"ticket"}`
     }
 
     const mercadopagoResponse = await mercadopago.preferences.create(preference)
-    console.log("🚀 ~ file: checkoutController.js:25 ~ exports.payItemsCart=async ~ mercadopagoResponse", mercadopagoResponse)
     
     try{
 
-        res.status(200).json(mercadopagoResponse)
+        res.status(200).json(mercadopagoResponse.body.id)
 
     }catch (error){
         res.status(400).json({

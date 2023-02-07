@@ -26,13 +26,20 @@ const threesSchema = new mongoose.Schema({
   },
   description_raw: {
     type: String,
-    require: true
   },
   specie: {
     type: String,
-    required: true
+    // required: true
+  },
+  item_type: {
+    type: String,
+    // require: true
   },
   location: [{ type: mongoose.Schema.Types.ObjectId, ref: "locations" }],
+  type: {
+    type: String,
+    default: "tree",
+  },
 });
 
 const Tree = mongoose.model("Tree", threesSchema);
