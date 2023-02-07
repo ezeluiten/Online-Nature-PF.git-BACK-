@@ -4,7 +4,6 @@ const { mercadopago } = require("../utils/mercadoPago")
 exports.payItemsCart = async( req, res ) => {
     const itemsCart = req.body
     const {items, totalAmount, payer} = itemsCart
-    console.log("🚀 ~ file: checkoutController.js:7 ~ exports.payItemsCart=async ~ payer", payer)
 
     items.forEach(element => {
         element.description = element.description.substr(0,200)
@@ -42,7 +41,6 @@ exports.payItemsCart = async( req, res ) => {
         },
         notification_url:`${"https://craven-sign-production.up.railway.app/api/v1/"}${"ticket"}`
     }
-    console.log("🚀 ~ file: checkoutController.js:36 ~ exports.payItemsCart=async ~ preference", preference)
 
     const mercadopagoResponse = await mercadopago.preferences.create(preference)
     
