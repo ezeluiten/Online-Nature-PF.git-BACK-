@@ -4,27 +4,40 @@ const Tree = require("../models/treesModel");
 
 
 exports.getCatalogue = async (req, res) => {
-    const tree = await Tree.find({})
-    const animals = await Animals.find({})
-    const allCatalogue = [...animals, ...tree]
+	try {
+    const tree = await Tree.find({});
+    const animals = await Animals.find({});
+    const allCatalogue = [...animals, ...tree];
+		const { title } = req.query;
+		console.log(title);
+		console.log(allCatalogue);
+		if (title) {
+			let itemName = allCatalogue.filter((item) =>
+				item.title.toLowerCase().includes(title.toLowerCase())
+			);
+			console.log(itemName);
+			itemName.length
+				? res.status(201).json(itemName)
+				: res.status(404).send("no se encontro el item");
+		} else {
+			// return res.status(201).json(allCatalogue);
+      res.status(201).json({
+                    status:"success",
+                    requestedAt:req.requestedAt,
+                    data:{
+                        allCatalogue
+        }
+      })
+		}
     
-    try{      
-        res.status(201).json({
-            status:"success",
-            requestedAt:req.requestedAt,
-            data:{
-                allCatalogue
-            }
-        })
+	} catch (error) {
+		res.status(400).json({
+			status: "failure",
+			message: error,
+		});
+	}
+};
 
-    }catch (error){
-        res.status(400).json({
-            status: "failure",
-            message: error
-        })
-    }
-
-}
 
 exports.deleteAnimal = async (req, res) => {
     const {id:idAnimal} = req.params;
@@ -300,3 +313,78 @@ exports.getAllTrees = async (req, res) => {
       })
     }
   }
+
+  exports.updateAll = async (req, res) => {
+    const body = req.body;
+
+    const {
+      title,
+      name,
+      image,
+      image_detail,
+      description,
+      description_raw,
+      amount,
+      location,
+      species,
+      item_type,
+    } = body;
+    const { id: idItem } = req.params;
+        const animal = await Animals.find({ _id: idItem });
+
+        const tree = await Tree.find({ _id: idItem });
+        const specie = animal && animal.length > 0 ? true : false;
+  try {
+  
+  if (specie) {
+     let animal = await Animals.findByIdAndUpdate(
+       (_id = idItem),
+       {
+         title,
+         name,
+         image,
+         image_detail,
+         description,
+         description_raw,
+         amount,
+         location,
+         species,
+         item_type,
+       },
+       {
+         new: true,
+         runValidators: true,
+       }
+     );
+     res.status(201).json(animal);
+  } else {
+  let tree = await Tree.findByIdAndUpdate(
+    (_id = idItem),
+    {
+      title,
+      name,
+      image,
+      image_detail,
+      description,
+      description_raw,
+      amount,
+      location,
+      species,
+      item_type,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  res.status(201).json(tree);
+  }
+   
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: "failure",
+      message: error,
+    });
+  }
+};
