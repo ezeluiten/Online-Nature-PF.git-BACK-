@@ -9,8 +9,6 @@ exports.getCatalogue = async (req, res) => {
     const animals = await Animals.find({});
     const allCatalogue = [...animals, ...tree];
 		const { title } = req.query;
-		console.log(title);
-		console.log(allCatalogue);
 		if (title) {
 			let itemName = allCatalogue.filter((item) =>
 				item.title.toLowerCase().includes(title.toLowerCase())

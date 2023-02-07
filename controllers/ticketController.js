@@ -19,6 +19,7 @@ exports.getMercadopagoNotification = async( req, res ) => {
         status : merchantOrder.body.status,
         status_detail: merchantOrder.body.status_detail,
         taxes: merchantOrder.body.taxes_amount,
+        payer_client_id: merchantOrder.body.metadata.payer_id,
         transaction_details: {
             net_amount : merchantOrder.body.transaction_details.net_received_amount,
             total_amount : merchantOrder.body.transaction_details.total_paid_amount

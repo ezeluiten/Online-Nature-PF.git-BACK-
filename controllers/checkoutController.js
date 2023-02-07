@@ -41,6 +41,9 @@ exports.payItemsCart = async( req, res ) => {
             email:payer.mail,
             client_id: payer.client_id,
         },
+        metadata:{
+            payer_id:payer.client_id
+        },
         notification_url:`${"https://craven-sign-production.up.railway.app/api/v1/"}${"ticket"}`
     }
 

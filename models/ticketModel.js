@@ -21,6 +21,14 @@ const ticketModel = new mongoose.Schema({
         type: String,
         required: true
     },
+    payer_client_id: {
+        type: String,
+        required: true
+    },
+    payer_mp: {
+        type: Object,
+        required: true
+    },
     payer: {
         email:{type:String},
         entity_type: {type:String},
