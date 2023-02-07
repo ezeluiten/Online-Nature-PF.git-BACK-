@@ -3,6 +3,7 @@ const Ticket = require("../models/ticketModel")
 
 exports.getMercadopagoNotification = async( req, res ) => {
     const { body , query, params } = req
+    console.log("🚀 ~ file: ticketController.js:6 ~ exports.getMercadopagoNotification=async ~ body", body)
     const idPayment = await body && body.data && body.data.id
     const merchantOrder = await mercadopago.payment.get(idPayment)
 
@@ -13,7 +14,7 @@ exports.getMercadopagoNotification = async( req, res ) => {
         date_approved: merchantOrder.body.date_approved,
         deductions_frequency : merchantOrder.body.installments,
         operation_type: merchantOrder.body.operation_type,
-        payer : merchantOrder.body.payer,
+        payer_mp : merchantOrder.body.payer,
         payment_method : merchantOrder.body.payment_method,
         status : merchantOrder.body.status,
         status_detail: merchantOrder.body.status_detail,

@@ -4,6 +4,7 @@ const { mercadopago } = require("../utils/mercadoPago")
 exports.payItemsCart = async( req, res ) => {
     const itemsCart = req.body
     const {items, totalAmount, payer} = itemsCart
+    console.log("🚀 ~ file: checkoutController.js:7 ~ exports.payItemsCart=async ~ payer", payer)
 
     items.forEach(element => {
         element.description = element.description.substr(0,200)
