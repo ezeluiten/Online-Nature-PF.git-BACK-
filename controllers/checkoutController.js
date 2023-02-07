@@ -38,7 +38,8 @@ exports.payItemsCart = async( req, res ) => {
                 number:payer.phone||0000000
             },
             name:payer.name || "none",
-            email:payer.mail
+            email:payer.mail,
+            client_id: payer.client_id,
         },
         notification_url:`${"https://craven-sign-production.up.railway.app/api/v1/"}${"ticket"}`
     }
