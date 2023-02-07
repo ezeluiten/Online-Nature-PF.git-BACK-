@@ -25,12 +25,20 @@ exports.payItemsCart = async( req, res ) => {
         total_amount: totalAmount * 1.15,
         items:normalizedItems,
         back_urls:{
-            success: "https://craven-sign-production.up.railway.app/api/v1/successRouteRedirection",
+            success: "https://online-nature-pf-front-git-main-ezeluiten.vercel.app/campaign",
             failure: "http://localhost:3000/campaign",
             pending: "http://localhost:3000/campaign",
             
         },
         auto_return:"approved",
+        payer:{
+            phone:{
+                area_code:"+57",
+                number:payer.phone||0000000
+            },
+            name:payer.name || "none",
+            email:payer.mail
+        },
         notification_url:`${"https://craven-sign-production.up.railway.app/api/v1/"}${"ticket"}`
     }
 

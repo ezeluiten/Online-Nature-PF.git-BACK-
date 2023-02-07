@@ -5,5 +5,6 @@ const router = express.Router()
 
 router
     .route("/")
+    .get(paymentNotificationController.getTickets)
     .post(paymentNotificationController.getMercadopagoNotification)
 module.exports = router

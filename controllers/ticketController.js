@@ -9,6 +9,7 @@ exports.getMercadopagoNotification = async( req, res ) => {
     const ticketInformation = {
         payment_id : merchantOrder.body.id,
         items : merchantOrder.body.additional_info.items,
+        payer : merchantOrder.body.additional_info.payer,
         date_approved: merchantOrder.body.date_approved,
         deductions_frequency : merchantOrder.body.installments,
         operation_type: merchantOrder.body.operation_type,
@@ -34,6 +35,26 @@ exports.getMercadopagoNotification = async( req, res ) => {
             status:"success",
             requestedAt:req.requestedAt,
             data:ticketCreation
+        })
+
+    }catch (error){
+        res.status(400).json({
+            status: "failure",
+            message: error
+        })
+    }
+}
+exports.getTickets = async( req, res ) => {
+    
+    const tickets = await Ticket.find({})
+
+
+    try{
+        
+        res.status(201).send({
+            status:"success",
+            requestedAt:req.requestedAt,
+            data:tickets
         })
 
     }catch (error){
