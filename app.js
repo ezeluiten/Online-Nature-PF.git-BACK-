@@ -79,6 +79,7 @@ app.post("/imagesTrees", async(req, res) => {
 })
 
 // 3) ROUTES
+
 app.use("/api/v1/species", speciesRouter);
 app.use("/api/v1/trees", treesRouter);
 app.use('/api/v1/orgs', orgRoutes);
@@ -115,6 +116,7 @@ app.use((req, res) => {
     ],
   });
 });
+
 
 module.exports = app;
 
