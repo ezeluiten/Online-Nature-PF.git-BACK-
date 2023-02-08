@@ -13,7 +13,6 @@ exports.getCatalogue = async (req, res) => {
 			let itemName = allCatalogue.filter((item) =>
 				item.title.toLowerCase().includes(title.toLowerCase())
 			);
-			console.log(itemName);
 			itemName.length
 				? res.status(201).json(itemName)
 				: res.status(404).send("no se encontro el item");
