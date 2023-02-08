@@ -6,9 +6,11 @@ const router = express.Router()
 router
   .route("/")
   .get(adoptionController.getCatalogue)
+  .put(adoptionController.updateAll)
   
-  
-  router.route("/:id").delete(adoptionController.deleteOneElement);
+router.route("/:id").delete(adoptionController.deleteOneElement);
+router.route("/:id").put(adoptionController.updateAll)
+
 router.route("/animals")
     .get(adoptionController.getAllAnimals)
     .post(adoptionController.createAnimal)
@@ -22,6 +24,6 @@ router.route("/trees")
 router.route("/trees/:id").delete(adoptionController.deleteTree)
 
 
-router.route("/:id").put(adoptionController.updateAnimal)
-router.route("/:id").put(adoptionController.updateTree)
+// router.route("/:id").put(adoptionController.updateAnimal)
+// router.route("/:id").put(adoptionController.updateTree)
 module.exports = router

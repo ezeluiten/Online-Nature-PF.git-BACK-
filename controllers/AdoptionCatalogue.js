@@ -4,27 +4,37 @@ const Tree = require("../models/treesModel");
 
 
 exports.getCatalogue = async (req, res) => {
-    const tree = await Tree.find({})
-    const animals = await Animals.find({})
-    const allCatalogue = [...animals, ...tree]
+	try {
+    const tree = await Tree.find({});
+    const animals = await Animals.find({});
+    const allCatalogue = [...animals, ...tree];
+		const { title } = req.query;
+		if (title) {
+			let itemName = allCatalogue.filter((item) =>
+				item.title.toLowerCase().includes(title.toLowerCase())
+			);
+			itemName.length
+				? res.status(201).json(itemName)
+				: res.status(404).send("no se encontro el item");
+		} else {
+			// return res.status(201).json(allCatalogue);
+      res.status(201).json({
+                    status:"success",
+                    requestedAt:req.requestedAt,
+                    data:{
+                        allCatalogue
+        }
+      })
+		}
     
-    try{      
-        res.status(201).json({
-            status:"success",
-            requestedAt:req.requestedAt,
-            data:{
-                allCatalogue
-            }
-        })
+	} catch (error) {
+		res.status(400).json({
+			status: "failure",
+			message: error,
+		});
+	}
+};
 
-    }catch (error){
-        res.status(400).json({
-            status: "failure",
-            message: error
-        })
-    }
-
-}
 
 exports.deleteAnimal = async (req, res) => {
     const {id:idAnimal} = req.params;
