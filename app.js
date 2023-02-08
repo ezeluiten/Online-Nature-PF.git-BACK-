@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const cloudinary = require("cloudinary").v2;
 const fileUpload = require("express-fileupload")
 const cors = require("cors")
+const { auth, requiresAuth } = require('express-openid-connect');
 
 const speciesRouter = require('./routes/speciesRoutes')
 const treesRouter = require('./routes/treesRoutes')
@@ -20,6 +21,15 @@ const successRoutes = require("./routes/successRouteRedirection")
 const ticketRoutes = require("./routes/ticketRoutes")
 
 const app = express();
+
+const config = {
+  authRequired: false,
+  auth0Logout: true,
+  baseURL: 'http://localhost:3000',
+  clientID: '{yourClientId}',
+  issuerBaseURL: 'https://{yourDomain}',
+  secret: 'LONG_RANDOM_STRING'
+};
 
 // 1) MIDDLEWARES
 if (process.env.NODE_ENV === "development") {
