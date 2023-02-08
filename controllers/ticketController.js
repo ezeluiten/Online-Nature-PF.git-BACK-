@@ -3,6 +3,7 @@ const Ticket = require("../models/ticketModel")
 const Animals = require("../models/animalsModel");
 const Tree = require("../models/treesModel");
 var _ = require('lodash');
+const {ticketsByMonth} = require("../helper/functionGetTicketByMonth")
 
 exports.getMercadopagoNotification = async( req, res ) => {
     const { body , query, params } = req
@@ -97,34 +98,7 @@ exports.getTicketsByMonth = async( req, res ) => {
     
     const { month } = req.params
 
-    const months = {
-        0: "enero",
-        1: "febrero",
-        2: "marzo",
-        3: "abril",
-        4: "mayo",
-        5: "junio",
-        6: "julio",
-        7: "agosto",
-        8: "septiembre",
-        9: "octubre",
-        10: "noviembre",
-        11: "diciembre",
-    }
-
-    const tickets = await Ticket.find({})
-
-    const normalizeDate = [...tickets].map(ticket=>{
-        const ticketDate = new Date(ticket.date_approved).getMonth()
-        return {
-            ...ticket,
-            month_string:months[ticketDate]
-        }
-    })
-
-    const filteredTicketsByMonth = normalizeDate.filter(ticket=>{
-        return ticket.month_string == month
-    })
+    const filteredTicketsByMonth = await ticketsByMonth(month)
 
     try{
         
@@ -132,6 +106,51 @@ exports.getTicketsByMonth = async( req, res ) => {
             status:"success",
             requestedAt:req.requestedAt,
             data:filteredTicketsByMonth
+        })
+
+    }catch (error){
+        res.status(400).json({
+            status: "failure",
+            message: error
+        })
+    }
+}
+
+exports.getLastThreeMonths = async( req, res ) => {
+    
+    
+    const months = [
+        "enero",
+        "febrero",
+        "marzo",
+        "abril",
+        "mayo",
+        "junio",
+        "julio",
+        "agosto",
+        "septiembre",
+        "octubre",
+        "noviembre",
+        "diciembre"
+    ]
+    
+    const priorLastMonth = months[11]
+    const lastMonth = months[(new Date().getMonth()-1)]
+    const currentMonth = months[(new Date().getMonth())]
+    const infoPriorLastMonth =  await ticketsByMonth(months[11]) 
+    const infoLastMonth =  await ticketsByMonth(months[(new Date().getMonth()-1)]) 
+    const infoCurrentMonth =  await ticketsByMonth(months[(new Date().getMonth())]) 
+    
+    try{
+        
+        res.status(201).send({
+            status:"success",
+            requestedAt:req.requestedAt,
+            data:{
+                [priorLastMonth]:infoPriorLastMonth,
+                [lastMonth]:infoLastMonth,
+                [currentMonth]:infoCurrentMonth,
+            }
         })
 
     }catch (error){
@@ -155,7 +174,6 @@ exports.getTotalDonationByItems = async( req, res ) => {
     const donationsByItems = []
 
     const tickets = await Ticket.find({})
-    
     const mappingDonations = [...tickets].map(ticket => {
         const items = _.get(ticket, "items", [])
         items.forEach(itemInTicket=>{
@@ -163,16 +181,18 @@ exports.getTotalDonationByItems = async( req, res ) => {
         })
     });
 
-    const totalDonationsByItems = []
+    const totalDonationsByItems = {}
     
-    const gettingTotalDonationByItems = idsCatalogue.forEach(idItem=>{
-        const salesByItem = donationsByItems.filter(itemDonated=>{
-            return  itemDonated.id == idItem
-        })
-        totalDonationsByItems.push(...salesByItem)
-        
-    })
-    console.log("🚀 ~ file: ticketController.js:175 ~ gettingTotalDonationByItems ~ gettingTotalDonationByItems", gettingTotalDonationByItems)
+    // const salesByItem = donationsByItems.forEach(itemDonated=>{
+    //     if(!totalDonationsByItems[itemDonated.id]){
+    //         totalDonationsByItems[itemDonated.id] = {
+    //             ...itemDonated
+    //         }
+    //     }else{
+
+    //     }
+    // })
+  
     
     try{
         
