@@ -36,6 +36,10 @@ const threesSchema = new mongoose.Schema({
     // require: true
   },
   location: [{ type: mongoose.Schema.Types.ObjectId, ref: "locations" }],
+  type: {
+    type: String,
+    default: "tree",
+  },
 });
 
 const Tree = mongoose.model("Tree", threesSchema);
