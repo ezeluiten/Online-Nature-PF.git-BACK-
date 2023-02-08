@@ -9,6 +9,9 @@ router
     .post(paymentNotificationController.getMercadopagoNotification)
     
     router
+    .route("/lastThreeMonths")
+    .get(paymentNotificationController.getLastThreeMonths)
+    router
     .route("/donationsByItem")
     .get(paymentNotificationController.getTotalDonationByItems)
     router
