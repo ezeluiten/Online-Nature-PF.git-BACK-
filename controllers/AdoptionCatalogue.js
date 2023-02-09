@@ -38,14 +38,12 @@ exports.getCatalogue = async (req, res) => {
 
 exports.deleteAnimal = async (req, res) => {
     const {id:idAnimal} = req.params;
-    console.log("id animal",idAnimal,req);
 
     try {
       if(idAnimal) {
         const animal = await Animals.deleteOne({
           _id: idAnimal,
         });
-        console.log("animal", animal)
         res.status(201).json(animal);
       }
       res.status(201).send("No existe ese id de animal");
@@ -61,13 +59,11 @@ exports.deleteAnimal = async (req, res) => {
 
   exports.deleteTree = async (req, res) => {
     const {id:idTree} = req.params;
-    console.log("id trees",idTree);
     try {
       if(idTree) {
         const tree = await Tree.deleteOne({
           _id: idTree,
         });
-        console.log("tree",tree)
         res.status(201).json(tree);
       }
       res.status(201).send("No existe un Tree con ese id");
@@ -289,7 +285,6 @@ exports.getAllTrees = async (req, res) => {
     const tree = await Tree.find({ _id: idItem })
     const specie =animal && animal.length>0?true:false
   
-    console.log("id Item",idItem);
     try {
       if (specie) {
         const animal = await Animals.deleteOne({

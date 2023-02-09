@@ -3,11 +3,10 @@ const Ticket = require("../models/ticketModel")
 const Animals = require("../models/animalsModel");
 const Tree = require("../models/treesModel");
 var _ = require('lodash');
-const {ticketsByMonth} = require("../helper/functionGetTicketByMonth")
+const {ticketsByMonth, calculateItemsTotalByTickets} = require("../helper/functionGetTicketByMonth")
 
 exports.getMercadopagoNotification = async( req, res ) => {
     const { body , query, params } = req
-    console.log("🚀 ~ file: ticketController.js:6 ~ exports.getMercadopagoNotification=async ~ body", body)
     const idPayment = await body && body.data && body.data.id
     const merchantOrder = await mercadopago.payment.get(idPayment)
 
@@ -140,17 +139,25 @@ exports.getLastThreeMonths = async( req, res ) => {
     const infoPriorLastMonth =  await ticketsByMonth(months[11]) 
     const infoLastMonth =  await ticketsByMonth(months[(new Date().getMonth()-1)]) 
     const infoCurrentMonth =  await ticketsByMonth(months[(new Date().getMonth())]) 
+
+    
+   
+    const mappingDonationsDic = calculateItemsTotalByTickets(infoPriorLastMonth)
+    const mappingDonationsJan = calculateItemsTotalByTickets(infoLastMonth)
+    const mappingDonationsFeb = calculateItemsTotalByTickets(infoCurrentMonth)
+
+    
     
     try{
         
         res.status(201).send({
             status:"success",
             requestedAt:req.requestedAt,
-            data:{
-                [priorLastMonth]:infoPriorLastMonth,
-                [lastMonth]:infoLastMonth,
-                [currentMonth]:infoCurrentMonth,
-            }
+            data:[
+                {...mappingDonationsDic, month:"december"},
+                {...mappingDonationsJan, month:"january"},
+                {...mappingDonationsFeb, month:"february"},
+            ]
         })
 
     }catch (error){

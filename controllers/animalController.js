@@ -31,7 +31,6 @@ exports.getAllAnimals = async (req, res) => {
 exports.getAnimalById = async (req, res) => {
   try {
     const id = await Animals.findById(req.params.id);
-    console.log(id);
     res.status(200).json(id);
   } catch (error) {
     res.status(400).json({

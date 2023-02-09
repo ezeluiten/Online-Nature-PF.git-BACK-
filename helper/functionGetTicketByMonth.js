@@ -1,4 +1,5 @@
 const Ticket = require("../models/ticketModel")
+const _ = require('lodash');
 
 const ticketsByMonth = async (month)=>{
 
@@ -19,7 +20,7 @@ const ticketsByMonth = async (month)=>{
         11: "diciembre",
     }
 
-    const tickets = await Ticket.find({})
+    const tickets = await Ticket.find({}).lean()
 
     const normalizeDate = [...tickets].map(ticket=>{
         const ticketDate = new Date(ticket.date_approved).getMonth()
@@ -35,7 +36,23 @@ const ticketsByMonth = async (month)=>{
 
     return filteredTicketsByMonth
 }
+const calculateItemsTotalByTickets= (tickets) => {
+
+
+    const mappingDonations = [...tickets].reduce((acum,ticket) => {
+        const items = _.get(ticket, "items", [])
+        items.forEach(item=>{
+            acum.amount = acum.amount + (item.unit_price * item.quantity )
+            acum.quantity = acum.quantity + Number(item.quantity)
+        })
+        
+        return acum
+    },{amount:0, quantity:0});
+
+    return mappingDonations
+}
 
 module.exports = {
-    ticketsByMonth
+    ticketsByMonth,
+    calculateItemsTotalByTickets
 }
