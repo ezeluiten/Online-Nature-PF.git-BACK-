@@ -16,7 +16,11 @@ const clientSchema = new mongoose.Schema({
     dni:{
         type:String,
         required:false
-    }
+    },
+    items:{
+        type:Array,
+        required:false
+    },
 })
 
 const Client = mongoose.model("Client", clientSchema)
