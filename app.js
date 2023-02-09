@@ -19,6 +19,7 @@ const filterRoutes = require("./routes/filtersRoutes")
 const checkOutRoutes = require("./routes/checkOutRoutes")
 const successRoutes = require("./routes/successRouteRedirection")
 const ticketRoutes = require("./routes/ticketRoutes")
+const updatePassword = require("./routes/changePasswordRoutes")
 
 const app = express();
 
@@ -104,6 +105,7 @@ app.use("/api/v1/filterController", filterRoutes);
 app.use("/api/v1/checkOutController", checkOutRoutes);
 app.use("/api/v1/successController", successRoutes);
 app.use("/api/v1/ticket", ticketRoutes);
+app.use("/api/v1/updatePassword", updatePassword);
 
 
 app.use((req, res) => {
