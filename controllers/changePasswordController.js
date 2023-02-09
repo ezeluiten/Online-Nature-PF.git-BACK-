@@ -4,9 +4,7 @@ var axios = require("axios").default;
 
 exports.changePasswordAuth0 = async( req, res ) => {
     const id = req.body.id
-    console.log("🚀 ~ file: changePasswordController.js:5 ~ exports.changePasswordAuth0=async ~ id", id)
     const password = req.body.password
-    console.log("🚀 ~ file: changePasswordController.js:7 ~ exports.changePasswordAuth0=async ~ password", password)
     try{
 
         var options = {
@@ -20,7 +18,6 @@ exports.changePasswordAuth0 = async( req, res ) => {
         };
 
         axios.request(options).then(function (response) {
-            console.log("🚀 ~ file: changePasswordController.js:19 ~ response", response)
             res.status(201).send({
                 status:"success",
                 requestedAt:req.requestedAt,
@@ -42,9 +39,7 @@ exports.changePasswordAuth0 = async( req, res ) => {
 
 exports.changePassPatch = async( req, res ) => {
     const id = req.body.id
-    console.log("🚀 ~ file: changePasswordController.js:5 ~ exports.changePasswordAuth0=async ~ id", id)
     const password = req.body.password
-    console.log("🚀 ~ file: changePasswordController.js:7 ~ exports.changePasswordAuth0=async ~ password", password)
     try{
 
         var options = {
@@ -58,7 +53,6 @@ exports.changePassPatch = async( req, res ) => {
         };
 
         axios.request(options).then(function (response) {
-            console.log("🚀 ~ file: changePasswordController.js:19 ~ response", response)
             res.status(201).send({
                 status:"success",
                 requestedAt:req.requestedAt,
