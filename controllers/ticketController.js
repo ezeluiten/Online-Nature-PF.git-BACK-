@@ -163,43 +163,37 @@ exports.getLastThreeMonths = async( req, res ) => {
 
 exports.getTotalDonationByItems = async( req, res ) => {
 
-    const tree = await Tree.find({});
-    const animals = await Animals.find({});
-    const allCatalogue = [...animals, ...tree];
-    const idsCatalogue = allCatalogue.map(itemCatalogue =>{
-        return(
-            itemCatalogue._id.toString()
-        )
-    })
-    const donationsByItems = []
-
     const tickets = await Ticket.find({})
-    const mappingDonations = [...tickets].map(ticket => {
+
+    const mappingDonations = [...tickets].reduce((acum,ticket) => {
         const items = _.get(ticket, "items", [])
-        items.forEach(itemInTicket=>{
-            donationsByItems.push(itemInTicket)
+        items.forEach(item=>{
+            if(acum.hasOwnProperty(item.id)){
+                acum[item.id] = {
+                    id: item.id,
+                    name: item.title,
+                    quantity: acum[item.id].quantity + Number(item.quantity),
+                    amount: acum[item.id].amount + (item.unit_price * item.quantity )
+                }
+            }else{
+                acum[item.id] = {
+                    id: item.id,
+                    name: item.title,
+                    quantity: Number(item.quantity),
+                    amount: Number((item.unit_price * item.quantity ))
+                }
+            }
         })
-    });
 
-    const totalDonationsByItems = {}
-    
-    // const salesByItem = donationsByItems.forEach(itemDonated=>{
-    //     if(!totalDonationsByItems[itemDonated.id]){
-    //         totalDonationsByItems[itemDonated.id] = {
-    //             ...itemDonated
-    //         }
-    //     }else{
-
-    //     }
-    // })
-  
+        return acum
+    },{});
     
     try{
         
         res.status(201).send({
             status:"success",
             requestedAt:req.requestedAt,
-            data:totalDonationsByItems
+            data:Object.values(mappingDonations)
         })
 
     }catch (error){
