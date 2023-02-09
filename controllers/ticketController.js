@@ -4,6 +4,7 @@ const Animals = require("../models/animalsModel");
 const Tree = require("../models/treesModel");
 var _ = require('lodash');
 const {ticketsByMonth, calculateItemsTotalByTickets} = require("../helper/functionGetTicketByMonth")
+const Client = require("../models/clientModel");
 
 exports.getMercadopagoNotification = async( req, res ) => {
     const { body , query, params } = req
@@ -158,6 +159,40 @@ exports.getLastThreeMonths = async( req, res ) => {
                 {...mappingDonationsJan, month:"january"},
                 {...mappingDonationsFeb, month:"february"},
             ]
+        })
+
+    }catch (error){
+        res.status(400).json({
+            status: "failure",
+            message: error
+        })
+    }
+}
+exports.getLastDonatorTransactions = async( req, res ) => {
+    try{
+        const tickets = await Ticket.find({}).sort({"date_approved":-1}).lean()
+
+        const ticketsOrdered = tickets.slice(0,4)
+
+        const lastDonators = []
+        
+        const calcLastDonators = await Promise.all( ticketsOrdered?.map(async ticket=>{
+            const donator = await Client.findOne({ _id: ticket.payer_client_id })
+            const amountDonated =  ticket.transaction_details.total_amount
+            const since =  Math.abs((Number((new Date().getTime()) - (new Date( ticket.date_approved).getTime())) / (1000 * 60 * 60 * 24))).toFixed(0)
+            return ({
+                id:donator._id.toString(),
+                name:donator.name,
+                amount: amountDonated,
+                since: since,
+                picture: donator.picture || "https://i.natgeofe.com/k/0e9fa05c-7cdb-4e15-a32a-b4fd60d64709/black-rhino-closeup_4x3.jpg"
+            })
+        }))
+        
+        res.status(201).send({
+            status:"success",
+            requestedAt:req.requestedAt,
+            data:calcLastDonators
         })
 
     }catch (error){
