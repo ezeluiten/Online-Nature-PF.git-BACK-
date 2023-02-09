@@ -21,6 +21,10 @@ const clientSchema = new mongoose.Schema({
         type:Array,
         required:false
     },
+    picture:{
+        type:String,
+        required:false
+    },
 })
 
 const Client = mongoose.model("Client", clientSchema)
