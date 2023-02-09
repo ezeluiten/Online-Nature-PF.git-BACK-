@@ -45,6 +45,23 @@ exports.getAllClients = async (req, res) => {
     });
   }
 };
+exports.getClientByEmail = async (req, res) => {
+  const email = req.params
+  console.log("🚀 ~ file: clientController.js:50 ~ exports.getClientByEmail= ~ email", email)
+  try {
+    const client = await Client.findOne({email:email});
+
+    if (!client)
+      return res.status(204).send("No hay cliente por aqui :c");
+
+    res.status(201).json(client);
+  } catch (error) {
+    res.status(400).json({
+      status: "failure",
+      message: error,
+    });
+  }
+};
 
 exports.deleteClient = async (req, res) => {
   const idClient = req.params.id;
@@ -71,11 +88,11 @@ exports.deleteClient = async (req, res) => {
 exports.updateClient = async (req, res) => {
   const body = req.body;
 
-  const { name, mail, phone, id } = body;
+  const { name, mail, phone, id, items } = body;
 
   let client = await Client.findOneAndUpdate(
     id,
-    { name, mail, phone },
+    { name, mail, phone, items },
     {
       new: true,
     }
